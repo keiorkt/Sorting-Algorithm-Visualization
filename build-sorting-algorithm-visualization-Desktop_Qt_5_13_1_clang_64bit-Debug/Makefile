@@ -53,10 +53,18 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = ../sorting-algorithm-visualization/main.cpp \
-		../sorting-algorithm-visualization/mainwindow.cpp moc_mainwindow.cpp
+		../sorting-algorithm-visualization/mainwindow.cpp \
+		../sorting-algorithm-visualization/paint.cpp \
+		../sorting-algorithm-visualization/sorting.cpp moc_mainwindow.cpp \
+		moc_paint.cpp \
+		moc_sorting.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
-		moc_mainwindow.o
+		paint.o \
+		sorting.o \
+		moc_mainwindow.o \
+		moc_paint.o \
+		moc_sorting.o
 DIST          = /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/qdevice.pri \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/device_config.prf \
@@ -223,6 +231,7 @@ DIST          = /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/spec_pre
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/qt_config.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/spec_post.prf \
+		../sorting-algorithm-visualization/.qmake.stash \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/toolchain.prf \
@@ -250,8 +259,12 @@ DIST          = /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/spec_pre
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/exceptions.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/yacc.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/lex.prf \
-		../sorting-algorithm-visualization/sorting-algorithm-visualization.pro ../sorting-algorithm-visualization/mainwindow.h ../sorting-algorithm-visualization/main.cpp \
-		../sorting-algorithm-visualization/mainwindow.cpp
+		../sorting-algorithm-visualization/sorting-algorithm-visualization.pro ../sorting-algorithm-visualization/mainwindow.h \
+		../sorting-algorithm-visualization/paint.h \
+		../sorting-algorithm-visualization/sorting.h ../sorting-algorithm-visualization/main.cpp \
+		../sorting-algorithm-visualization/mainwindow.cpp \
+		../sorting-algorithm-visualization/paint.cpp \
+		../sorting-algorithm-visualization/sorting.cpp
 QMAKE_TARGET  = sorting-algorithm-visualization
 DESTDIR       = 
 TARGET        = sorting-algorithm-visualization.app/Contents/MacOS/sorting-algorithm-visualization
@@ -440,6 +453,7 @@ Makefile: ../sorting-algorithm-visualization/sorting-algorithm-visualization.pro
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/qt_config.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/macx-clang/qmake.conf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/exclusive_builds.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/mac/sdk.prf \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/toolchain.prf \
@@ -638,6 +652,7 @@ Makefile: ../sorting-algorithm-visualization/sorting-algorithm-visualization.pro
 /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/qt_config.prf:
 /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/macx-clang/qmake.conf:
 /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/exclusive_builds.prf:
 /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/mac/sdk.prf:
 /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/toolchain.prf:
@@ -699,8 +714,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../sorting-algorithm-visualization/mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../sorting-algorithm-visualization/main.cpp ../sorting-algorithm-visualization/mainwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../sorting-algorithm-visualization/mainwindow.h ../sorting-algorithm-visualization/paint.h ../sorting-algorithm-visualization/sorting.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../sorting-algorithm-visualization/main.cpp ../sorting-algorithm-visualization/mainwindow.cpp ../sorting-algorithm-visualization/paint.cpp ../sorting-algorithm-visualization/sorting.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../sorting-algorithm-visualization/mainwindow.ui $(DISTDIR)/
 
 
@@ -711,6 +726,7 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r sorting-algorithm-visualization.app
+	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -735,15 +751,308 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/data/dummy.cpp
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ -pipe -stdlib=libc++ -g -std=gnu++11 $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk -mmacosx-version-min=10.12 -Wall -W -dM -E -o moc_predefs.h /Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_paint.cpp moc_sorting.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_paint.cpp moc_sorting.cpp
 moc_mainwindow.cpp: ../sorting-algorithm-visualization/mainwindow.h \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QTime \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../sorting-algorithm-visualization/sorting.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QThread \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QMutex \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qmutex.h \
+		../sorting-algorithm-visualization/paint.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolordialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolormap.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolumnview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommonstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcompleter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdial.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdirmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdrawutil.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfocusframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesture.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qheaderview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeyeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlcdnumber.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdiarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenu.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmouseeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qopenglwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qproxystyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qrubberband.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscroller.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qshortcut.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizegrip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplashscreen.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstatusbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylefactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleoption.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylepainter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleplugin.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtooltip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreeview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundogroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundostack.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundoview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwhatsthis.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwizard.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QPainter \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qpainter.h \
 		moc_predefs.h \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/bin/moc
 	/Users/keitaiwasaki/Qt/5.13.1/clang_64/bin/moc $(DEFINES) --include '/Users/keitaiwasaki/Library/Mobile Documents/com~apple~CloudDocs/School/4th-semester/COMP2012H/FinalProject/Sorting-Algorithm-Visualization/build-sorting-algorithm-visualization-Desktop_Qt_5_13_1_clang_64bit-Debug/moc_predefs.h' -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/macx-clang -I'/Users/keitaiwasaki/Library/Mobile Documents/com~apple~CloudDocs/School/4th-semester/COMP2012H/FinalProject/Sorting-Algorithm-Visualization/sorting-algorithm-visualization' -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -F/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib ../sorting-algorithm-visualization/mainwindow.h -o moc_mainwindow.cpp
+
+moc_paint.cpp: ../sorting-algorithm-visualization/paint.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolordialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolormap.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolumnview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommonstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcompleter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdial.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdirmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdrawutil.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfocusframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesture.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qheaderview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeyeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlcdnumber.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdiarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenu.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmouseeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qopenglwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qproxystyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qrubberband.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscroller.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qshortcut.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizegrip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplashscreen.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstatusbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylefactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleoption.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylepainter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleplugin.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtooltip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreeview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundogroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundostack.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundoview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwhatsthis.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwizard.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QMutex \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qmutex.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QPainter \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		moc_predefs.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/bin/moc
+	/Users/keitaiwasaki/Qt/5.13.1/clang_64/bin/moc $(DEFINES) --include '/Users/keitaiwasaki/Library/Mobile Documents/com~apple~CloudDocs/School/4th-semester/COMP2012H/FinalProject/Sorting-Algorithm-Visualization/build-sorting-algorithm-visualization-Desktop_Qt_5_13_1_clang_64bit-Debug/moc_predefs.h' -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/macx-clang -I'/Users/keitaiwasaki/Library/Mobile Documents/com~apple~CloudDocs/School/4th-semester/COMP2012H/FinalProject/Sorting-Algorithm-Visualization/sorting-algorithm-visualization' -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -F/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib ../sorting-algorithm-visualization/paint.h -o moc_paint.cpp
+
+moc_sorting.cpp: ../sorting-algorithm-visualization/sorting.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QThread \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QMutex \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qmutex.h \
+		moc_predefs.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/bin/moc
+	/Users/keitaiwasaki/Qt/5.13.1/clang_64/bin/moc $(DEFINES) --include '/Users/keitaiwasaki/Library/Mobile Documents/com~apple~CloudDocs/School/4th-semester/COMP2012H/FinalProject/Sorting-Algorithm-Visualization/build-sorting-algorithm-visualization-Desktop_Qt_5_13_1_clang_64bit-Debug/moc_predefs.h' -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/mkspecs/macx-clang -I'/Users/keitaiwasaki/Library/Mobile Documents/com~apple~CloudDocs/School/4th-semester/COMP2012H/FinalProject/Sorting-Algorithm-Visualization/sorting-algorithm-visualization' -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers -I/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.0/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/include -F/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib ../sorting-algorithm-visualization/sorting.h -o moc_sorting.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -771,18 +1080,456 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 main.o: ../sorting-algorithm-visualization/main.cpp ../sorting-algorithm-visualization/mainwindow.h \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
-		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QApplication \
-		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QTime \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../sorting-algorithm-visualization/sorting.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QThread \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QMutex \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qmutex.h \
+		../sorting-algorithm-visualization/paint.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolordialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolormap.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolumnview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommonstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcompleter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdial.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdirmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdrawutil.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfocusframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesture.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qheaderview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeyeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlcdnumber.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdiarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenu.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmouseeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qopenglwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qproxystyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qrubberband.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscroller.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qshortcut.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizegrip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplashscreen.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstatusbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylefactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleoption.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylepainter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleplugin.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtooltip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreeview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundogroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundostack.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundoview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwhatsthis.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwizard.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QPainter \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qpainter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../sorting-algorithm-visualization/main.cpp
 
 mainwindow.o: ../sorting-algorithm-visualization/mainwindow.cpp ../sorting-algorithm-visualization/mainwindow.h \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QMainWindow \
 		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QPixmap \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qpixmap.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QTime \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qdatetime.h \
+		../sorting-algorithm-visualization/sorting.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QThread \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QMutex \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qmutex.h \
+		../sorting-algorithm-visualization/paint.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolordialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolormap.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolumnview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommonstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcompleter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdial.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdirmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdrawutil.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfocusframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesture.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qheaderview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeyeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlcdnumber.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdiarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenu.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmouseeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qopenglwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qproxystyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qrubberband.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscroller.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qshortcut.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizegrip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplashscreen.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstatusbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylefactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleoption.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylepainter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleplugin.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtooltip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreeview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundogroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundostack.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundoview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwhatsthis.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwizard.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QPainter \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qpainter.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../sorting-algorithm-visualization/mainwindow.cpp
 
+paint.o: ../sorting-algorithm-visualization/paint.cpp ../sorting-algorithm-visualization/paint.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsglobal.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractitemview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qabstractspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qactiongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qapplication.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qboxlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qbuttongroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcalendarwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcheckbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolordialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolormap.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcolumnview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommandlinkbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcommonstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qcompleter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatawidgetmapper.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdatetimeedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdesktopwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdial.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdialogbuttonbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdirmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdockwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qdrawutil.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qerrormessage.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfiledialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfileiconprovider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfilesystemmodel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfocusframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontcombobox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qfontdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qformlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qframe.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesture.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgesturerecognizer.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsanchorlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicseffect.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsitemanimation.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicslinearlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsproxywidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsscene.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicssceneevent.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicstransform.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicsview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgraphicswidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgridlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qgroupbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qheaderview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qinputdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qitemeditorfactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeyeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qkeysequenceedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlabel.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlayoutitem.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlcdnumber.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlineedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qlistwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmainwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdiarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmdisubwindow.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenu.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmenubar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmessagebox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qmouseeventtransition.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qopenglwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qplaintextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qprogressdialog.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qproxystyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qpushbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qradiobutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qrubberband.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollarea.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscroller.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qscrollerproperties.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qshortcut.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizegrip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsizepolicy.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qslider.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qspinbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplashscreen.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsplitter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedlayout.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstackedwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstatusbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyle.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleditemdelegate.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylefactory.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleoption.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstylepainter.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qstyleplugin.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qsystemtrayicon.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtableview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtablewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtabwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextbrowser.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtextedit.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbar.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbox.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtoolbutton.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtooltip.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreeview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtreewidgetitemiterator.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundogroup.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundostack.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qundoview.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwhatsthis.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidget.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwidgetaction.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qwizard.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtWidgets.framework/Headers/qtwidgetsversion.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QMutex \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qmutex.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/QPainter \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtGui.framework/Headers/qpainter.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o paint.o ../sorting-algorithm-visualization/paint.cpp
+
+sorting.o: ../sorting-algorithm-visualization/sorting.cpp ../sorting-algorithm-visualization/sorting.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QObject \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qobject.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QThread \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qthread.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QMutex \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qmutex.h \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/QRandomGenerator \
+		/Users/keitaiwasaki/Qt/5.13.1/clang_64/lib/QtCore.framework/Headers/qrandom.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o sorting.o ../sorting-algorithm-visualization/sorting.cpp
+
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_paint.o: moc_paint.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_paint.o moc_paint.cpp
+
+moc_sorting.o: moc_sorting.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_sorting.o moc_sorting.cpp
 
 ####### Install
 
