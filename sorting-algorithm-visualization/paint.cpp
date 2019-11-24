@@ -5,17 +5,18 @@ Paint::Paint(QWidget *parent) : QWidget(parent) {
     setPalette(palette);
     setAutoFillBackground(true);
     animate = false;
-    penWidth =5;
+    penWidth = 5;
     spacing = 0;
 
     setPen(QPen(lineColor, penWidth, Qt::PenStyle::SolidLine, Qt::PenCapStyle::SquareCap, Qt::PenJoinStyle::BevelJoin));
 }
 
-void Paint::setPaintData(std::vector<int> n, std::vector<int> idx) {
+void Paint::setPaintData(int* n, int* idx, int size) {
     mutex.lock();
 
     numbers = n;
     indices = idx;
+    this->size = size;
 
     mutex.unlock();
 }
@@ -25,13 +26,13 @@ void Paint::paintEvent(QPaintEvent *) {
 
     int iColor{0};
 
-    for (int i{0}; i < numbers.size(); ++i) {
+    for (int i{0}; i < size; ++i) {
         pen.setColor(lineColor);
         painter.setPen(pen);
 
         bool contain{false};
-        for (int x : indices) {
-            if (x == i) {
+        for (int j = 0; j < size; ++j) {
+            if (indices[j] == i) {
                 contain = true;
             }
         }
@@ -53,4 +54,8 @@ void Paint::onNumberSizeChange(int size) {
 
 void Paint::setBrush(const QBrush &brush) {
     this->brush = brush;
+}
+
+void Paint::setPen(const QPen &pen) {
+    this->pen = pen;
 }
