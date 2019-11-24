@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[10];
-    char stringdata0[162];
+    char stringdata0[150];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,18 +36,18 @@ QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 12), // "StartSorting"
 QT_MOC_LITERAL(2, 24, 0), // ""
 QT_MOC_LITERAL(3, 25, 16), // "onNumbersChanged"
-QT_MOC_LITERAL(4, 42, 16), // "std::vector<int>"
-QT_MOC_LITERAL(5, 59, 17), // "onChangeAlgorithm"
-QT_MOC_LITERAL(6, 77, 17), // "onSortingFinished"
-QT_MOC_LITERAL(7, 95, 18), // "onNumberSizeChange"
-QT_MOC_LITERAL(8, 114, 22), // "on_buttonStart_pressed"
-QT_MOC_LITERAL(9, 137, 24) // "on_buttonShuffle_pressed"
+QT_MOC_LITERAL(4, 42, 4), // "int*"
+QT_MOC_LITERAL(5, 47, 17), // "onChangeAlgorithm"
+QT_MOC_LITERAL(6, 65, 17), // "onSortingFinished"
+QT_MOC_LITERAL(7, 83, 18), // "onNumberSizeChange"
+QT_MOC_LITERAL(8, 102, 22), // "on_buttonStart_pressed"
+QT_MOC_LITERAL(9, 125, 24) // "on_buttonShuffle_pressed"
 
     },
     "MainWindow\0StartSorting\0\0onNumbersChanged\0"
-    "std::vector<int>\0onChangeAlgorithm\0"
-    "onSortingFinished\0onNumberSizeChange\0"
-    "on_buttonStart_pressed\0on_buttonShuffle_pressed"
+    "int*\0onChangeAlgorithm\0onSortingFinished\0"
+    "onNumberSizeChange\0on_buttonStart_pressed\0"
+    "on_buttonShuffle_pressed"
 };
 #undef QT_MOC_LITERAL
 
@@ -68,18 +68,18 @@ static const uint qt_meta_data_MainWindow[] = {
        1,    0,   49,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    2,   50,    2, 0x0a /* Public */,
-       5,    1,   55,    2, 0x0a /* Public */,
-       6,    0,   58,    2, 0x0a /* Public */,
-       7,    1,   59,    2, 0x0a /* Public */,
-       8,    0,   62,    2, 0x08 /* Private */,
-       9,    0,   63,    2, 0x08 /* Private */,
+       3,    3,   50,    2, 0x0a /* Public */,
+       5,    1,   57,    2, 0x0a /* Public */,
+       6,    0,   60,    2, 0x0a /* Public */,
+       7,    1,   61,    2, 0x0a /* Public */,
+       8,    0,   64,    2, 0x08 /* Private */,
+       9,    0,   65,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 4, 0x80000000 | 4,    2,    2,
+    QMetaType::Void, 0x80000000 | 4, 0x80000000 | 4, QMetaType::Int,    2,    2,    2,
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    2,
@@ -96,7 +96,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->StartSorting(); break;
-        case 1: _t->onNumbersChanged((*reinterpret_cast< std::vector<int>(*)>(_a[1])),(*reinterpret_cast< std::vector<int>(*)>(_a[2]))); break;
+        case 1: _t->onNumbersChanged((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< int*(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
         case 2: _t->onChangeAlgorithm((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->onSortingFinished(); break;
         case 4: _t->onNumberSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;

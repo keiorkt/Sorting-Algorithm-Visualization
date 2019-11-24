@@ -29,7 +29,7 @@ private:
     bool isRunning {false};
 
 public slots:
-    void onNumbersChanged(std::vector<int>, std::vector<int>);
+    void onNumbersChanged(int*, int*, int);
     void onChangeAlgorithm(QString);
     void onSortingFinished();
     void onNumberSizeChange(int);

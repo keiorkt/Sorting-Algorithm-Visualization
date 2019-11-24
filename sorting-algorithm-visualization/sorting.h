@@ -27,7 +27,6 @@ private:
     int numberMax = 600;
 
     void shuffle(int arr[],int size);
-
     void swap(int arr[],int size,int i,int j);
 
 public:
@@ -52,7 +51,7 @@ public:
     void coloring(int* arr,int* colorindex);
 
 signals:
-    void changed(int* arr,int* index);
+    void changed(int* arr,int* index, int size);
     void done();
 };
 

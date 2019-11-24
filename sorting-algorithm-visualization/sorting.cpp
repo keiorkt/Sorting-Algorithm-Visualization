@@ -26,7 +26,7 @@ void Sorting::shuffle(int* arr,int size){
     }
 }
 
-void swap(int* arr,int size,int i,int j){
+void Sorting::swap(int* arr,int size,int i,int j){
     if (i>=size || j>=size || i==j){
         return;
     }
@@ -42,7 +42,7 @@ void Sorting::createArray(){
     }
     shuffle(arr,size);
     int index[1] = {0};
-    emit changed(arr,index);
+    emit changed(arr,index, size);
 }
 
 void Sorting::sort_bubble(int *arr, int size){
@@ -154,6 +154,8 @@ void Sorting::sort_cocktail(int* arr, int size){
 }
 
 void Sorting::coloring(int* arr, int* colorindex){
-    emit changed(arr,colorindex);
+    // we have to dynamically get the size of the array
+    int size = 3;
+    emit changed(arr,colorindex,size);
     this->usleep(animDelay);
 }

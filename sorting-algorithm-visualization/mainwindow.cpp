@@ -27,10 +27,10 @@ MainWindow::MainWindow(QWidget *parent)
     paint.update();
 
     // CONNECT
-    connect(s, SIGNAL(numbersChanged(std::vector<int>, std::vector<int>)),
-            this, SLOT(onNumbersChanged(std::vector<int>, std::vector<int>)));
+    connect(s, SIGNAL(changed(int*, int*, int)),
+            this, SLOT(onNumbersChanged(int*, int*, int)));
 
-    connect(s, SIGNAL(sortingFinished()),
+    connect(s, SIGNAL(done()),
             this, SLOT(onSortingFinished()));
 
     connect(ui->comboAlgos, SIGNAL(currentTextChanged(QString)),
@@ -49,8 +49,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::onNumbersChanged(std::vector<int> nums, std::vector<int> idx) {
-    paint.setPaintData(nums, idx);
+void MainWindow::onNumbersChanged(int* nums, int* idx, int size) {
+    paint.setPaintData(nums, idx, size);
     paint.update();
 }
 
