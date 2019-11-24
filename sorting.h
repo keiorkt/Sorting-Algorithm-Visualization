@@ -42,6 +42,7 @@ public:
     void createArray();
     int getDefaultSize() {return DEFAULT_SIZE;}
     int getDefaultAnimSpeed() {return DEFAULT_ANIM_SPEED;}
+    int getMaxAnimSpeed() {return MAX_ANIM_SPEED;}
 
     void sort_bubble(int* arr,int size);
     void sort_insertion(int* arr,int size);
