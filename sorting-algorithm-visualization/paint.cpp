@@ -1,6 +1,6 @@
-#include "paintwidget.h"
+#include "paint.h"
 
-PaintWidget::PaintWidget(QWidget *parent) : QWidget(parent) {
+Paint::Paint(QWidget *parent) : QWidget(parent) {
     palette.setColor(QPalette::Background, backgroundColor);
     setPalette(palette);
     setAutoFillBackground(true);
@@ -11,7 +11,7 @@ PaintWidget::PaintWidget(QWidget *parent) : QWidget(parent) {
     setPen(QPen(lineColor, penWidth, Qt::PenStyle::SolidLine, Qt::PenCapStyle::SquareCap, Qt::PenJoinStyle::BevelJoin));
 }
 
-void PaintWidget::setPaintData(std::vector<int> n, std::vector<int> idx) {
+void Paint::setPaintData(std::vector<int> n, std::vector<int> idx) {
     mutex.lock();
 
     numbers = n;
@@ -20,7 +20,7 @@ void PaintWidget::setPaintData(std::vector<int> n, std::vector<int> idx) {
     mutex.unlock();
 }
 
-void PaintWidget::paintEvent(QPaintEvent *) {
+void Paint::paintEvent(QPaintEvent *) {
     QPainter painter(this);
 
     int iColor{0};
@@ -46,11 +46,11 @@ void PaintWidget::paintEvent(QPaintEvent *) {
     }
 }
 
-void PaintWidget::onNumberSizeChange(int size) {
+void Paint::onNumberSizeChange(int size) {
     penWidth = this->width() / size - spacing;
     this->update();
 }
 
-void PaintWidget::setBrush(const QBrush &brush) {
+void Paint::setBrush(const QBrush &brush) {
     this->brush = brush;
 }

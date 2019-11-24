@@ -18,11 +18,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    paintwidget.cpp
+    paint.cpp
 
 HEADERS += \
     mainwindow.h \
-    paintwidget.h
+    paint.h
 
 FORMS += \
     mainwindow.ui

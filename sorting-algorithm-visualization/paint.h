@@ -1,5 +1,5 @@
-#ifndef PAINTWIDGET_H
-#define PAINTWIDGET_H
+#ifndef PAINT_H
+#define PAINT_H
 
 #include <QObject>
 #include <QtWidgets>
@@ -12,10 +12,10 @@
 const QColor defaultLineColor = Qt::lightGray;
 const QColor defaultBgColor = Qt::black;
 
-class PaintWidget : public QWidget {
+class Paint : public QWidget {
     Q_OBJECT
 public:
-    explicit PaintWidget(QWidget *parent = nullptr);
+    explicit Paint(QWidget *parent = nullptr);
     void setLineColor(QColor color) { lineColor = color;}
     void setAnim(bool isAnim) { animate = isAnim;}
     void setPaintData(std::vector<int>, std::vector<int>);
@@ -50,4 +50,4 @@ private:
     QMutex mutex;
 };
 
-#endif // PAINTWIDGET_H
+#endif // PAINT_H
