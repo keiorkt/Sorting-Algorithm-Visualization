@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lyPainter->addWidget(&paint);
     ui->comboAlgos->addItems(s->getAlgorithms());
     ui->spinAnimSpeed->setValue(s->getDefaultAnimSpeed());
-//    ui->sliderAnimSpeed->setMaximum(sThread->getAnimSpeedMax());
-//    ui->spinAnimSpeed->setMaximum(sThread->getAnimSpeedMax());
+    ui->sliderAnimSpeed->setMaximum(s->getMaxAnimSpeed());
+    ui->spinAnimSpeed->setMaximum(s->getMaxAnimSpeed());
 
     s->setAlgorithm(ui->comboAlgos->currentText());
     paint.setSizePolicy(QSizePolicy::Policy::Expanding,QSizePolicy::Policy::Expanding);
