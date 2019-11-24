@@ -49,10 +49,10 @@ public:
     void sort_quick(int* arr,int size,int start,int end);
     void sort_cocktail(int* arr,int size);
 
-    void coloring(int* arr,int* colorindex);
+    void coloring(int* arr,int size,int* colorindex);
 
 signals:
-    void changed(int* arr,int* index);
+    void changed(int* arr,int size,int* index);
     void done();
 };
 
