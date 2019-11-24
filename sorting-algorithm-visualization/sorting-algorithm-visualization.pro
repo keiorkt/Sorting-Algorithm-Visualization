@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    paint.cpp
+    paint.cpp \
+    sorting.cpp
 
 HEADERS += \
     mainwindow.h \
-    paint.h
+    paint.h \
+    sorting.h
 
 FORMS += \
     mainwindow.ui
