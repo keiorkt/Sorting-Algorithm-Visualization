@@ -30,7 +30,7 @@ private:
 
 public slots:
     void onNumbersChanged(std::vector<int>, std::vector<int>);
-    void onChangeAlgo(std::string);
+    void onChangeAlgorithm(QString);
     void onSortingFinished();
     void onNumberSizeChange(int);
 
