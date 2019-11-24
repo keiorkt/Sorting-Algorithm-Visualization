@@ -42,7 +42,7 @@ void Sorting::createArray(){
     }
     shuffle(arr,size);
     int index[1] = {0};
-    emit changed(arr,index, size);
+    emit changed(arr,size,index);
 }
 
 void Sorting::sort_bubble(int *arr, int size){
@@ -52,7 +52,7 @@ void Sorting::sort_bubble(int *arr, int size){
                 swap(arr,size,i,i+1);
             }
             int color[1] = {i};
-            coloring(arr,color);
+            coloring(arr,size,color);
         }
     }
 }
@@ -63,7 +63,7 @@ void Sorting::sort_insertion(int* arr, int size){
         while (temp>=1 && arr[temp-1]>arr[temp]){
             swap(arr,size,temp-1,temp);
             int color[1] = {temp};
-            coloring(arr,color);
+            coloring(arr,size,color);
             --temp;
         }
     }
@@ -79,7 +79,7 @@ void Sorting::sort_selection(int *arr, int size){
                 minvalue = arr[j];
             }
             int color[2] = {i,j};
-            coloring(arr,color);
+            coloring(arr,size,color);
         }
         swap(arr,size,i,minindex);
     }
@@ -97,12 +97,12 @@ void Sorting::sort_quick(int*arr,int size,int start,int end){
     while (true){
         while (arr[left]<pivot && left<end){
             int color[1] = {left};
-            coloring(arr,color);
+            coloring(arr,size,color);
             ++left;
         }
         while (arr[right]>=pivot && right>left){
             int color[2] = {left,right};
-            coloring(arr,color);
+            coloring(arr,size,color);
             --right;
         }
         if (left == end){
@@ -132,7 +132,7 @@ void Sorting::sort_cocktail(int* arr, int size){
                 changed = true;
             }
             int color[1] = {i};
-            coloring(arr,color);
+            coloring(arr,size,color);
         }
         --end;
         if (changed == false){
@@ -144,7 +144,7 @@ void Sorting::sort_cocktail(int* arr, int size){
                 changed = true;
             }
             int color[1] = {i};
-            coloring(arr,color);
+            coloring(arr,size,color);
         }
         if (changed == false){
             break;
@@ -153,9 +153,7 @@ void Sorting::sort_cocktail(int* arr, int size){
     }
 }
 
-void Sorting::coloring(int* arr, int* colorindex){
-    // we have to dynamically get the size of the array
-    int size = 3;
-    emit changed(arr,colorindex,size);
+void Sorting::coloring(int* arr,int size,int* colorindex){
+    emit changed(arr,size,colorindex);
     this->usleep(animDelay);
 }

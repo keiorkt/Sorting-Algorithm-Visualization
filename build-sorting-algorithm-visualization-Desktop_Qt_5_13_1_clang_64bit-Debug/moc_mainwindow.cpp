@@ -79,7 +79,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 4, 0x80000000 | 4, QMetaType::Int,    2,    2,    2,
+    QMetaType::Void, 0x80000000 | 4, QMetaType::Int, 0x80000000 | 4,    2,    2,    2,
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    2,
@@ -96,7 +96,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->StartSorting(); break;
-        case 1: _t->onNumbersChanged((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< int*(*)>(_a[2])),(*reinterpret_cast< int(*)>(_a[3]))); break;
+        case 1: _t->onNumbersChanged((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int*(*)>(_a[3]))); break;
         case 2: _t->onChangeAlgorithm((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->onSortingFinished(); break;
         case 4: _t->onNumberSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
