@@ -26,9 +26,9 @@ private:
     int numberMin = 10;
     int numberMax = 600;
 
-    void shuffle(int arr[],int size);
+    void shuffle(int* arr,int size);
 
-    void swap(int arr[],int size,int i,int j);
+    void swap(int* arr,int size,int i,int j);
 
 public:
     explicit Sorting(QObject* parent = nullptr);
