@@ -26,7 +26,7 @@ void Sorting::shuffle(int* arr,int size){
     }
 }
 
-void swap(int* arr,int size,int i,int j){
+void Sorting::swap(int* arr,int size,int i,int j){
     if (i>=size || j>=size || i==j){
         return;
     }
