@@ -11,7 +11,7 @@ Paint::Paint(QWidget *parent) : QWidget(parent) {
     setPen(QPen(lineColor, penWidth, Qt::PenStyle::SolidLine, Qt::PenCapStyle::SquareCap, Qt::PenJoinStyle::BevelJoin));
 }
 
-void Paint::setPaintData(int* n, int* idx, int size) {
+void Paint::setPaintData(int* n, int* idx, int size, int idxSize) {
     mutex.lock();
 
     numbers = n;
@@ -31,7 +31,7 @@ void Paint::paintEvent(QPaintEvent *) {
         painter.setPen(pen);
 
         bool contain{false};
-        for (int j = 0; j < size; ++j) {
+        for (int j = 0; j < idxSize; ++j) {
             if (indices[j] == i) {
                 contain = true;
             }

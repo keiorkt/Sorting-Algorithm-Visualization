@@ -52,7 +52,7 @@ public:
     void coloring(int* arr,int size,int* colorindex);
 
 signals:
-    void changed(int* arr,int size, int* index);
+    void changed(int* arr,int size, int* index, int idxSize);
     void done();
 };
 
