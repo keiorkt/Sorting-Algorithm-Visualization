@@ -154,6 +154,7 @@ void Sorting::sort_cocktail(int* arr, int size){
 }
 
 void Sorting::coloring(int* arr,int size,int* colorindex){
-    emit changed(arr,size,colorindex);
+    // TODO : get the idxSize : size of indicies array
+    emit changed(arr,size,colorindex/*,idxSize*/);
     this->usleep(animDelay);
 }

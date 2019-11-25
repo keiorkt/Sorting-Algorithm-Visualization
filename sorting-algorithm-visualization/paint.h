@@ -18,7 +18,7 @@ public:
     explicit Paint(QWidget *parent = nullptr);
     void setLineColor(QColor color) { lineColor = color;}
     void setAnim(bool isAnim) { animate = isAnim;}
-    void setPaintData(int*, int*, int);
+    void setPaintData(int*, int*, int, int);
     void setPenWidth(int w) { penWidth = w;}
     void setSpacing(int s) { spacing = s;}
     void resetColor() {lineColor = defaultLineColor;}

@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lyPainter->addWidget(&paint);
     ui->comboAlgos->addItems(s->getAlgorithms());
     ui->spinAnimSpeed->setValue(s->getDefaultAnimSpeed());
-//    ui->sliderAnimSpeed->setMaximum(sThread->getAnimSpeedMax());
-//    ui->spinAnimSpeed->setMaximum(sThread->getAnimSpeedMax());
+    ui->sliderAnimSpeed->setMaximum(s->getMaxAnimSpeed());
+    ui->spinAnimSpeed->setMaximum(s->getMaxAnimSpeed());
 
     s->setAlgorithm(ui->comboAlgos->currentText());
     paint.setSizePolicy(QSizePolicy::Policy::Expanding,QSizePolicy::Policy::Expanding);
@@ -27,8 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     paint.update();
 
     // CONNECT
-    connect(s, SIGNAL(changed(int*, int, int*)),
-            this, SLOT(onNumbersChanged(int*, int, int*)));
+    connect(s, SIGNAL(changed(int*, int, int*, int)),
+            this, SLOT(onNumbersChanged(int*, int, int*, int)));
 
     connect(s, SIGNAL(done()),
             this, SLOT(onSortingFinished()));
@@ -49,8 +49,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::onNumbersChanged(int* nums, int size, int* idx) {
-    paint.setPaintData(nums, idx, size);
+void MainWindow::onNumbersChanged(int* nums, int size, int* idx, int idxSize) {
+    paint.setPaintData(nums, idx, size, idxSize);
     paint.update();
 }
 

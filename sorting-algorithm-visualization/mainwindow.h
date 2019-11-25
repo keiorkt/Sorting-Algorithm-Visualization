@@ -29,7 +29,7 @@ private:
     bool isRunning {false};
 
 public slots:
-    void onNumbersChanged(int*, int, int*);
+    void onNumbersChanged(int*, int, int*, int);
     void onChangeAlgorithm(QString);
     void onSortingFinished();
     void onNumberSizeChange(int);
