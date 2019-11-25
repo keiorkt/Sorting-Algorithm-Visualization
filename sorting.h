@@ -42,7 +42,6 @@ public:
     void createArray();
     int getDefaultSize() {return DEFAULT_SIZE;}
     int getDefaultAnimSpeed() {return DEFAULT_ANIM_SPEED;}
-    int getMaxAnimSpeed() {return MAX_ANIM_SPEED;}
 
     void sort_bubble(int* arr,int size);
     void sort_insertion(int* arr,int size);
@@ -50,10 +49,10 @@ public:
     void sort_quick(int* arr,int size,int start,int end);
     void sort_cocktail(int* arr,int size);
 
-    void coloring(int* arr,int size,int* colorindex);
+    void coloring(int* arr,int size_arr,int* colorindex,int size_color);
 
 signals:
-    void changed(int* arr,int size,int* index);
+    void changed(int* arr,int size_arr,int* index,int size_color);
     void done();
 };
 
