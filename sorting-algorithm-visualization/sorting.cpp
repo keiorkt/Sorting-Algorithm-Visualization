@@ -38,7 +38,7 @@ void Sorting::swap(int* arr,int size,int i,int j){
 void Sorting::createArray(){
     arr = new int[size];
     for (int i=0;i<size;++i){
-        arr[i] = i+1;
+        arr[i] = numberMax*(i+1)/size;
     }
     shuffle(arr,size);
     int index[1] = {0};
