@@ -35,6 +35,53 @@ void Sorting::swap(int* arr,int size,int i,int j){
     arr[j] = temp;
 }
 
+void Sorting::merge(int* arr,int size,int start,int end){
+    int div = (start+end)/2;
+    int lsize = div-start+1;
+    int rsize = end-div;
+
+    int* L = new int[lsize];
+    int* R = new int[rsize];
+
+    for (int i = 0; i<lsize; ++i){
+        L[i] = arr[start+i];
+    }
+    for (int i = 0; i<rsize;  ++i){
+        R[i] = arr[div+1+i];
+    }
+    int left = 0;
+    int right = 0;
+    int merged = start;
+
+    while (left<lsize && right<rsize){
+        if (L[left] <= R[right]){
+            arr[merged] = L[left];
+            ++left;
+            int color[2] = {merged,lsize+merged};
+            coloring(arr,size,color,2);
+        } else {
+            arr[merged] = R[right];
+            ++right;
+            int color[2] = {merged,rsize+merged};
+            coloring(arr,size,color,2);
+        }
+        ++merged;
+    }
+
+    while (left<lsize){
+        arr[merged] = L[left];
+        ++left;
+        ++merged;
+    }
+    while (right<rsize){
+        arr[merged] = R[right];
+        ++right;
+        ++merged;
+    }
+    delete [] L;
+    delete [] R;
+}
+
 void Sorting::createArray(){
     arr = new int[size];
     for (int i=0;i<size;++i){
@@ -150,6 +197,15 @@ void Sorting::sort_cocktail(int* arr, int size){
             break;
         }
         ++start;
+    }
+}
+
+void Sorting::sort_merge(int *arr, int size, int start, int end){
+    if (start<end){
+        int div = (start+end)/2;
+        sort_merge(arr,size,start,div);
+        sort_merge(arr,size,div+1,end);
+        merge(arr,size,start,end);
     }
 }
 
