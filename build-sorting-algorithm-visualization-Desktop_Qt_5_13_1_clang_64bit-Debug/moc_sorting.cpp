@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Sorting_t {
-    QByteArrayData data[8];
-    char stringdata0[42];
+    QByteArrayData data[9];
+    char stringdata0[57];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -37,13 +37,14 @@ QT_MOC_LITERAL(1, 8, 7), // "changed"
 QT_MOC_LITERAL(2, 16, 0), // ""
 QT_MOC_LITERAL(3, 17, 4), // "int*"
 QT_MOC_LITERAL(4, 22, 3), // "arr"
-QT_MOC_LITERAL(5, 26, 4), // "size"
-QT_MOC_LITERAL(6, 31, 5), // "index"
-QT_MOC_LITERAL(7, 37, 4) // "done"
+QT_MOC_LITERAL(5, 26, 8), // "size_arr"
+QT_MOC_LITERAL(6, 35, 5), // "index"
+QT_MOC_LITERAL(7, 41, 10), // "size_color"
+QT_MOC_LITERAL(8, 52, 4) // "done"
 
     },
-    "Sorting\0changed\0\0int*\0arr\0size\0index\0"
-    "done"
+    "Sorting\0changed\0\0int*\0arr\0size_arr\0"
+    "index\0size_color\0done"
 };
 #undef QT_MOC_LITERAL
 
@@ -61,11 +62,11 @@ static const uint qt_meta_data_Sorting[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    3,   24,    2, 0x06 /* Public */,
-       7,    0,   31,    2, 0x06 /* Public */,
+       1,    4,   24,    2, 0x06 /* Public */,
+       8,    0,   33,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, 0x80000000 | 3, QMetaType::Int, 0x80000000 | 3,    4,    5,    6,
+    QMetaType::Void, 0x80000000 | 3, QMetaType::Int, 0x80000000 | 3, QMetaType::Int,    4,    5,    6,    7,
     QMetaType::Void,
 
        0        // eod
@@ -77,14 +78,14 @@ void Sorting::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         auto *_t = static_cast<Sorting *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->changed((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int*(*)>(_a[3]))); break;
+        case 0: _t->changed((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int*(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
         case 1: _t->done(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
-            using _t = void (Sorting::*)(int * , int , int * );
+            using _t = void (Sorting::*)(int * , int , int * , int );
             if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&Sorting::changed)) {
                 *result = 0;
                 return;
@@ -141,9 +142,9 @@ int Sorting::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 }
 
 // SIGNAL 0
-void Sorting::changed(int * _t1, int _t2, int * _t3)
+void Sorting::changed(int * _t1, int _t2, int * _t3, int _t4)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t3))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t4))) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 

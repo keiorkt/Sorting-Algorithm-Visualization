@@ -17,6 +17,7 @@ void Paint::setPaintData(int* n, int* idx, int size, int idxSize) {
     numbers = n;
     indices = idx;
     this->size = size;
+    this->idxSize = idxSize;
 
     mutex.unlock();
 }
@@ -32,9 +33,7 @@ void Paint::paintEvent(QPaintEvent *) {
 
         bool contain{false};
         for (int j = 0; j < idxSize; ++j) {
-            if (indices[j] == i) {
-                contain = true;
-            }
+            if (indices[j] == i) {contain = true;}
         }
 
         if (animate && contain) {

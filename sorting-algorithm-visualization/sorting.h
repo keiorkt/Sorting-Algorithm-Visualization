@@ -26,8 +26,8 @@ private:
     int numberMin = 10;
     int numberMax = 600;
 
-    void shuffle(int arr[],int size);
-    void swap(int arr[],int size,int i,int j);
+    void shuffle(int* arr,int size);
+    void swap(int* arr,int size,int i,int j);
 
 public:
     explicit Sorting(QObject* parent = nullptr);
@@ -49,10 +49,10 @@ public:
     void sort_quick(int* arr,int size,int start,int end);
     void sort_cocktail(int* arr,int size);
 
-    void coloring(int* arr,int size,int* colorindex);
+    void coloring(int* arr,int size_arr,int* colorindex,int size_color);
 
 signals:
-    void changed(int* arr,int size, int* index, int idxSize);
+    void changed(int* arr,int size_arr,int* index,int size_color);
     void done();
 };
 
