@@ -68,18 +68,18 @@ static const uint qt_meta_data_MainWindow[] = {
        1,    0,   49,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    3,   50,    2, 0x0a /* Public */,
-       5,    1,   57,    2, 0x0a /* Public */,
-       6,    0,   60,    2, 0x0a /* Public */,
-       7,    1,   61,    2, 0x0a /* Public */,
-       8,    0,   64,    2, 0x08 /* Private */,
-       9,    0,   65,    2, 0x08 /* Private */,
+       3,    4,   50,    2, 0x0a /* Public */,
+       5,    1,   59,    2, 0x0a /* Public */,
+       6,    0,   62,    2, 0x0a /* Public */,
+       7,    1,   63,    2, 0x0a /* Public */,
+       8,    0,   66,    2, 0x08 /* Private */,
+       9,    0,   67,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 4, QMetaType::Int, 0x80000000 | 4,    2,    2,    2,
+    QMetaType::Void, 0x80000000 | 4, QMetaType::Int, 0x80000000 | 4, QMetaType::Int,    2,    2,    2,    2,
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    2,
@@ -96,7 +96,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_UNUSED(_t)
         switch (_id) {
         case 0: _t->StartSorting(); break;
-        case 1: _t->onNumbersChanged((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int*(*)>(_a[3]))); break;
+        case 1: _t->onNumbersChanged((*reinterpret_cast< int*(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< int*(*)>(_a[3])),(*reinterpret_cast< int(*)>(_a[4]))); break;
         case 2: _t->onChangeAlgorithm((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->onSortingFinished(); break;
         case 4: _t->onNumberSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;

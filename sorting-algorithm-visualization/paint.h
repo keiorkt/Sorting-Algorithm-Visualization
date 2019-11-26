@@ -45,6 +45,7 @@ private:
     int* numbers;
     int* indices;
     int size;
+    int idxSize;
 
     void setPen(const QPen &pen);
     void setBrush(const QBrush &brush);

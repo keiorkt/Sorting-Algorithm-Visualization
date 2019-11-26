@@ -27,7 +27,6 @@ private:
     int numberMax = 600;
 
     void shuffle(int* arr,int size);
-
     void swap(int* arr,int size,int i,int j);
 
 public:
