@@ -16,6 +16,8 @@ void Sorting::run(){
         sort_quick(arr,size,0,size-1);
     } else if (algorithm == "Cocktail Sort"){
         sort_cocktail(arr,size);
+    } else if (algorithm == "Merge Sort"){
+        sort_merge(arr,size,0,size-1);
     }
 }
 
