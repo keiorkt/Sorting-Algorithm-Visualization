@@ -18,6 +18,8 @@ void Sorting::run(){
         sort_cocktail(arr,size);
     } else if (algorithm == "Merge Sort"){
         sort_merge(arr,size,0,size-1);
+    } else if (algorithm == "Heap Sort"){
+        sort_heap(arr,size);
     }
 }
 
@@ -82,6 +84,27 @@ void Sorting::merge(int* arr,int size,int start,int end){
     }
     delete [] L;
     delete [] R;
+}
+
+void  Sorting::heapify(int *arr, int size, int heapsize, int i){
+    int maxindex = i;
+    int left = 2*i+1;
+    int right = 2*i+2;
+
+    if (left<heapsize && arr[left]>arr[maxindex]){
+        maxindex = left;
+    }
+
+    if (right<heapsize && arr[right]>arr[maxindex]){
+        maxindex = right;
+    }
+
+    if (maxindex != i){
+        swap(arr,size,i,maxindex);
+        int color[1] = {i};
+        coloring(arr,size,color,1);
+        heapify(arr,size,heapsize,maxindex);
+    }
 }
 
 void Sorting::createArray(){
@@ -208,6 +231,19 @@ void Sorting::sort_merge(int *arr, int size, int start, int end){
         sort_merge(arr,size,start,div);
         sort_merge(arr,size,div+1,end);
         merge(arr,size,start,end);
+    }
+}
+
+void Sorting::sort_heap(int *arr, int size){
+    for (int i = size/2-1; i>=0; --i){
+        heapify(arr,size,size,i);
+    }
+
+    for (int i=size-1;i>=0;--i){
+        swap(arr,size,0,i);
+        int color[1] = {i};
+        coloring(arr,size,color,1);
+        heapify(arr,size,i,0);
     }
 }
 
