@@ -19,7 +19,7 @@ class Sorting : public QThread {
 private:
     QObject* parent;
     QString algorithm;
-    QStringList algorithms = {"Bubble Sort","Insertion Sort","Selection Sort","Quicksort","Cocktail Sort","Merge Sort"};
+    QStringList algorithms = {"Bubble Sort","Insertion Sort","Selection Sort","Quicksort","Cocktail Sort","Merge Sort","Heap Sort"};
     int size = DEFAULT_SIZE;
     int* arr;
     int animDelay = ANIM_SPEED_STEP;
@@ -30,6 +30,7 @@ private:
 
     void swap(int* arr,int size,int i,int j);
     void merge(int* arr,int size,int start,int end);
+    void heapify(int* arr,int size,int heapsize,int i);
 
 public:
     explicit Sorting(QObject* parent = nullptr);
@@ -50,6 +51,7 @@ public:
     void sort_quick(int* arr,int size,int start,int end);
     void sort_cocktail(int* arr,int size);
     void sort_merge(int* arr,int size,int start,int end);
+    void sort_heap(int* arr,int size);
 
     void coloring(int* arr,int size_arr,int* colorindex,int size_color);
 
