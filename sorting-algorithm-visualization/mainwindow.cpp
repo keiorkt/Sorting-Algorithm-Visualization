@@ -62,7 +62,7 @@ void MainWindow::onNumbersChanged(int* nums, int size, int* idx, int idxSize) {
 void MainWindow::onSortingFinished() {
     ui->labelExecTime->setText(QString::fromStdString("Execution time: "+ std::to_string(timer.elapsed()) +" ms   "));
     paint.setAnim(false);
-    paint.setLineColor(Qt::green);
+    paint.setLineColor(Qt::yellow);
     paint.update();
     isRunning = false;
     ui->buttonShuffle->setDisabled(false);
