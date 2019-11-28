@@ -21,7 +21,7 @@ private:
     QString algorithm;
     QString shuffleType;
     QStringList algorithms = {"Bubble Sort","Insertion Sort","Selection Sort","Quicksort","Cocktail Sort","Merge Sort","Heap Sort"};
-    QStringList shuffles = {"shuffle 1", "shuffle 2", "shuffle 3"};
+    QStringList shuffles = {"Random", "Reverse", "Almost sorted"};
     int size = DEFAULT_SIZE;
     int* arr;
     int animDelay = ANIM_SPEED_STEP;
