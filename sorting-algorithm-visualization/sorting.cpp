@@ -5,7 +5,7 @@ Sorting::Sorting(QObject* parent) : QThread(parent){
 }
 
 void Sorting::run(){
-    shuffle(arr,size);
+    //shuffle(arr,size);
     if (algorithm == "Bubble Sort"){
         sort_bubble(arr,size);
     } else if (algorithm == "Selection Sort"){
@@ -26,8 +26,21 @@ void Sorting::run(){
 }
 
 void Sorting::shuffle(int* arr,int size){
-    for (int i=0;i<size;++i){
-        int j = QRandomGenerator::global()->bounded(0,i+1);
+    if (shuffleType == "Random"){
+        for (int i=0;i<size;++i){
+            int j = QRandomGenerator::global()->bounded(0,i+1);
+            swap(arr,size,i,j);
+        }
+    } else if (shuffleType == "Reverse"){
+        for (int i=0;i<size/2;++i){
+            swap(arr,size,i,size-1-i);
+        }
+    } else if (shuffleType == "Almost sorted"){
+        int i = QRandomGenerator::global()->bounded(0,size);
+        int j;
+        do {
+            j = QRandomGenerator::global()->bounded(0,size);
+        } while (i == j);
         swap(arr,size,i,j);
     }
 }
@@ -121,7 +134,7 @@ void Sorting::createArray(){
 
 void Sorting::sort_bubble(int *arr, int size){
     for (int max_index=size-1;max_index>0;--max_index){
-        for (int i=0;i<max_index-1;++i){
+        for (int i=0;i<max_index;++i){
             if (arr[i]>arr[i+1]){
                 swap(arr,size,i,i+1);
             }
