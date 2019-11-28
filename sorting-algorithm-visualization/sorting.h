@@ -19,7 +19,9 @@ class Sorting : public QThread {
 private:
     QObject* parent;
     QString algorithm;
+    QString shuffleType;
     QStringList algorithms = {"Bubble Sort","Insertion Sort","Selection Sort","Quicksort","Cocktail Sort","Merge Sort","Heap Sort"};
+    QStringList shuffles = {"shuffle 1", "shuffle 2", "shuffle 3"};
     int size = DEFAULT_SIZE;
     int* arr;
     int animDelay = ANIM_SPEED_STEP;
@@ -35,12 +37,14 @@ private:
 public:
     explicit Sorting(QObject* parent = nullptr);
     QStringList getAlgorithms() {return algorithms;}
+    QStringList getShuffles() {return shuffles;}
 
     void run() override;
 
     void setSize(int size) {this->size = size;}
     void setAnimSpeed(int speed) {this->animDelay = MAX_ANIM_DELAY - speed * ANIM_SPEED_STEP;}
     void setAlgorithm(QString option) {algorithm = option;}
+    void setShuffle(QString option) {shuffleType = option;}
     void createArray();
     int getDefaultSize() {return DEFAULT_SIZE;}
     int getDefaultAnimSpeed() {return DEFAULT_ANIM_SPEED;}

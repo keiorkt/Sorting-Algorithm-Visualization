@@ -34,15 +34,16 @@ public:
     QGridLayout *lyGrid;
     QLabel *labelAlg;
     QGridLayout *gridLayout_2;
-    QSpinBox *spinAnimSpeed;
     QSlider *sliderAnimSpeed;
+    QSpinBox *spinAnimSpeed;
     QLabel *labelAnimSpeed;
     QGridLayout *gridLayout;
-    QPushButton *buttonStart;
-    QSpacerItem *horizontalSpacer;
-    QComboBox *comboAlgos;
-    QLabel *labelExecTime;
     QPushButton *buttonShuffle;
+    QLabel *labelExecTime;
+    QPushButton *buttonStart;
+    QComboBox *comboAlgos;
+    QSpacerItem *horizontalSpacer;
+    QComboBox *comboShuffle;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -87,29 +88,29 @@ public:
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        spinAnimSpeed = new QSpinBox(centralWidget);
-        spinAnimSpeed->setObjectName(QString::fromUtf8("spinAnimSpeed"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(spinAnimSpeed->sizePolicy().hasHeightForWidth());
-        spinAnimSpeed->setSizePolicy(sizePolicy2);
-        spinAnimSpeed->setMinimumSize(QSize(80, 23));
-
-        gridLayout_2->addWidget(spinAnimSpeed, 0, 0, 1, 1);
-
         sliderAnimSpeed = new QSlider(centralWidget);
         sliderAnimSpeed->setObjectName(QString::fromUtf8("sliderAnimSpeed"));
-        QSizePolicy sizePolicy3(QSizePolicy::Expanding, QSizePolicy::Fixed);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(sliderAnimSpeed->sizePolicy().hasHeightForWidth());
-        sliderAnimSpeed->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(sliderAnimSpeed->sizePolicy().hasHeightForWidth());
+        sliderAnimSpeed->setSizePolicy(sizePolicy2);
         sliderAnimSpeed->setMinimumSize(QSize(150, 0));
         sliderAnimSpeed->setFont(font);
         sliderAnimSpeed->setOrientation(Qt::Horizontal);
 
         gridLayout_2->addWidget(sliderAnimSpeed, 0, 1, 1, 1);
+
+        spinAnimSpeed = new QSpinBox(centralWidget);
+        spinAnimSpeed->setObjectName(QString::fromUtf8("spinAnimSpeed"));
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(spinAnimSpeed->sizePolicy().hasHeightForWidth());
+        spinAnimSpeed->setSizePolicy(sizePolicy3);
+        spinAnimSpeed->setMinimumSize(QSize(80, 23));
+
+        gridLayout_2->addWidget(spinAnimSpeed, 0, 0, 1, 1);
 
 
         lyGrid->addLayout(gridLayout_2, 1, 1, 1, 1);
@@ -124,6 +125,18 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        buttonShuffle = new QPushButton(centralWidget);
+        buttonShuffle->setObjectName(QString::fromUtf8("buttonShuffle"));
+        sizePolicy.setHeightForWidth(buttonShuffle->sizePolicy().hasHeightForWidth());
+        buttonShuffle->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(buttonShuffle, 0, 4, 1, 1);
+
+        labelExecTime = new QLabel(centralWidget);
+        labelExecTime->setObjectName(QString::fromUtf8("labelExecTime"));
+
+        gridLayout->addWidget(labelExecTime, 0, 5, 1, 1);
+
         buttonStart = new QPushButton(centralWidget);
         buttonStart->setObjectName(QString::fromUtf8("buttonStart"));
         sizePolicy.setHeightForWidth(buttonStart->sizePolicy().hasHeightForWidth());
@@ -131,10 +144,6 @@ public:
         buttonStart->setMinimumSize(QSize(100, 21));
 
         gridLayout->addWidget(buttonStart, 0, 2, 1, 1);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        gridLayout->addItem(horizontalSpacer, 0, 6, 1, 1);
 
         comboAlgos = new QComboBox(centralWidget);
         comboAlgos->setObjectName(QString::fromUtf8("comboAlgos"));
@@ -144,17 +153,14 @@ public:
 
         gridLayout->addWidget(comboAlgos, 0, 0, 1, 1);
 
-        labelExecTime = new QLabel(centralWidget);
-        labelExecTime->setObjectName(QString::fromUtf8("labelExecTime"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout->addWidget(labelExecTime, 0, 4, 1, 1);
+        gridLayout->addItem(horizontalSpacer, 0, 7, 1, 1);
 
-        buttonShuffle = new QPushButton(centralWidget);
-        buttonShuffle->setObjectName(QString::fromUtf8("buttonShuffle"));
-        sizePolicy.setHeightForWidth(buttonShuffle->sizePolicy().hasHeightForWidth());
-        buttonShuffle->setSizePolicy(sizePolicy);
+        comboShuffle = new QComboBox(centralWidget);
+        comboShuffle->setObjectName(QString::fromUtf8("comboShuffle"));
 
-        gridLayout->addWidget(buttonShuffle, 0, 3, 1, 1);
+        gridLayout->addWidget(comboShuffle, 0, 3, 1, 1);
 
 
         lyGrid->addLayout(gridLayout, 0, 1, 1, 1);
@@ -176,9 +182,9 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         labelAlg->setText(QCoreApplication::translate("MainWindow", "Algorithm", nullptr));
         labelAnimSpeed->setText(QCoreApplication::translate("MainWindow", "AnimSpeed", nullptr));
-        buttonStart->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
-        labelExecTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         buttonShuffle->setText(QCoreApplication::translate("MainWindow", "Shuffle", nullptr));
+        labelExecTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        buttonStart->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
     } // retranslateUi
 
 };
