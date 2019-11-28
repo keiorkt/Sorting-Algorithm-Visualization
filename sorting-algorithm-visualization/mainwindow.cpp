@@ -22,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
 
     sorting->setAlgorithm(ui->comboAlgos->currentText());
+    sorting->setShuffle(ui->comboShuffle->currentText());
     paint.setSizePolicy(QSizePolicy::Policy::Expanding,QSizePolicy::Policy::Expanding);
     paint.setPenWidth(5);
     paint.setSpacing(2);
