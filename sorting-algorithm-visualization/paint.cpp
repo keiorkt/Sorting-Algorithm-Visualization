@@ -32,8 +32,8 @@ void Paint::paintEvent(QPaintEvent *) {
         painter.setPen(pen);
 
         bool contain{false};
-        for (int j = 0; j < idxSize; ++j) {
-            if (indices[j] == i) {contain = true;}
+        for (int j{0}; j < idxSize; ++j) {
+//            if (indices[j] == i) {contain = true;}
         }
 
         if (animate && contain) {
