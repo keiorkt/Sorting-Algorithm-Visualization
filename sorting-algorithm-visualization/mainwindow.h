@@ -23,7 +23,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    Sorting* s;
+    Sorting* sorting;
     Paint paint;
     QTime timer;
     bool isRunning {false};
@@ -31,6 +31,7 @@ private:
 public slots:
     void onNumbersChanged(int*, int, int*, int);
     void onChangeAlgorithm(QString);
+    void onChangeShuffle(QString);
     void onSortingFinished();
     void onNumberSizeChange(int);
 

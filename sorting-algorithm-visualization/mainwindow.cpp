@@ -12,31 +12,35 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->labelExecTime->setText("Execution time: 00ms  ");
 
-    s = new Sorting(this);
+    sorting = new Sorting(this);
 
     ui->lyPainter->addWidget(&paint);
-    ui->comboAlgos->addItems(s->getAlgorithms());
-    ui->spinAnimSpeed->setValue(s->getDefaultAnimSpeed());
-    ui->sliderAnimSpeed->setMaximum(s->getMaxAnimSpeed());
-    ui->spinAnimSpeed->setMaximum(s->getMaxAnimSpeed());
+    ui->comboAlgos->addItems(sorting->getAlgorithms());
+    ui->comboShuffle->addItems(sorting->getShuffles());
+    ui->spinAnimSpeed->setValue(sorting->getDefaultAnimSpeed());
+    ui->sliderAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
+    ui->spinAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
 
-    s->setAlgorithm(ui->comboAlgos->currentText());
+    sorting->setAlgorithm(ui->comboAlgos->currentText());
     paint.setSizePolicy(QSizePolicy::Policy::Expanding,QSizePolicy::Policy::Expanding);
     paint.setPenWidth(5);
     paint.setSpacing(2);
     paint.update();
 
     // CONNECT
-    connect(s, SIGNAL(changed(int*, int, int*, int)),
+    connect(sorting, SIGNAL(changed(int*, int, int*, int)),
             this, SLOT(onNumbersChanged(int*, int, int*, int)));
 
-    connect(s, SIGNAL(done()),
+    connect(sorting, SIGNAL(done()),
             this, SLOT(onSortingFinished()));
 
     connect(ui->comboAlgos, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangeAlgorithm(QString)));
 
-    s->createArray();
+    connect(ui->comboShuffle, SIGNAL(currentTextChanged(QString)),
+            this, SLOT(onChangeShuffle(QString)));
+
+    sorting->createArray();
 }
 
 void MainWindow::onNumberSizeChange(int newValue) {
@@ -66,7 +70,11 @@ void MainWindow::onSortingFinished() {
 
 
 void MainWindow::onChangeAlgorithm(QString algorithmName) {
-    s->setAlgorithm(algorithmName);
+    sorting->setAlgorithm(algorithmName);
+}
+
+void MainWindow::onChangeShuffle(QString shuffleName) {
+    sorting->setShuffle(shuffleName);
 }
 
 void MainWindow::on_buttonStart_pressed() {
@@ -75,13 +83,13 @@ void MainWindow::on_buttonStart_pressed() {
         ui->buttonStart->setText("Stop");
         ui->buttonShuffle->setDisabled(true);
 
-        s->setAnimSpeed(ui->spinAnimSpeed->value());
+        sorting->setAnimSpeed(ui->spinAnimSpeed->value());
 
         paint.setAnim(true);
         paint.resetColor();
 
         timer.start();
-        s->start();
+        sorting->start();
     }
     else {
         isRunning = false;
@@ -89,11 +97,11 @@ void MainWindow::on_buttonStart_pressed() {
         ui->buttonShuffle->setDisabled(false);
         paint.resetColor();
         ui->buttonStart->setText("Start");
-        s->terminate();
+        sorting->terminate();
     }
 }
 
 void MainWindow::on_buttonShuffle_pressed() {
     paint.resetColor();
-    s->createArray();
+    sorting->createArray();
 }
