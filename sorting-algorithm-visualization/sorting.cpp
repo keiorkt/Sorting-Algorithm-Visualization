@@ -21,6 +21,8 @@ void Sorting::run(){
     } else if (algorithm == "Heap Sort"){
         sort_heap(arr,size);
     }
+
+    emit done();
 }
 
 void Sorting::shuffle(int* arr,int size){
