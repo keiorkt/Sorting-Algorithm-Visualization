@@ -34,6 +34,7 @@ public slots:
     void onChangeShuffle(QString);
     void onSortingFinished();
     void onNumberSizeChange(int);
+    void onChangePaintType(QString);
 
 private slots:
     void on_buttonStart_pressed();

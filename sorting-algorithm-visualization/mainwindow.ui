@@ -58,30 +58,6 @@
       </item>
       <item row="1" column="1">
        <layout class="QGridLayout" name="gridLayout_2">
-        <item row="0" column="1">
-         <widget class="QSlider" name="sliderAnimSpeed">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>150</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <pointsize>10</pointsize>
-           </font>
-          </property>
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QSpinBox" name="spinAnimSpeed">
           <property name="sizePolicy">
@@ -97,6 +73,9 @@
            </size>
           </property>
          </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="comboPaintType"/>
         </item>
        </layout>
       </item>
@@ -117,6 +96,28 @@
       </item>
       <item row="0" column="1">
        <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="2">
+         <widget class="QPushButton" name="buttonStart">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>100</width>
+            <height>21</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Start</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QComboBox" name="comboShuffle"/>
+        </item>
         <item row="0" column="4">
          <widget class="QPushButton" name="buttonShuffle">
           <property name="sizePolicy">
@@ -134,25 +135,6 @@
          <widget class="QLabel" name="labelExecTime">
           <property name="text">
            <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="2">
-         <widget class="QPushButton" name="buttonStart">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="minimumSize">
-           <size>
-            <width>100</width>
-            <height>21</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Start</string>
           </property>
          </widget>
         </item>
@@ -185,9 +167,6 @@
           </property>
          </spacer>
         </item>
-        <item row="0" column="3">
-         <widget class="QComboBox" name="comboShuffle"/>
-        </item>
        </layout>
       </item>
      </layout>
@@ -197,38 +176,5 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections>
-  <connection>
-   <sender>sliderAnimSpeed</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>spinAnimSpeed</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>394</x>
-     <y>642</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>161</x>
-     <y>646</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinAnimSpeed</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>sliderAnimSpeed</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>161</x>
-     <y>646</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>518</x>
-     <y>642</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

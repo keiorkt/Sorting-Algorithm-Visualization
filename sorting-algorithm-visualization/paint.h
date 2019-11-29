@@ -22,6 +22,8 @@ public:
     void setPenWidth(int w) { penWidth = w;}
     void setSpacing(int s) { spacing = s;}
     void resetColor() {lineColor = defaultLineColor;}
+    void setPaintType(QString option) {paintType = option;}
+    QStringList getPaintTypes() {return paintTypes;}
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -46,6 +48,9 @@ private:
     int* indices;
     int size;
     int idxSize;
+
+    QString paintType;
+    QStringList paintTypes = {"Bar", "Star"};
 
     void setPen(const QPen &pen);
     void setBrush(const QBrush &brush);
