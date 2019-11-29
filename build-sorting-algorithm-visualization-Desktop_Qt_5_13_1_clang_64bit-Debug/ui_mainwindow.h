@@ -35,6 +35,7 @@ public:
     QGridLayout *gridLayout_2;
     QSpinBox *spinAnimSpeed;
     QComboBox *comboPaintType;
+    QSpinBox *spinArraySize;
     QLabel *labelAnimSpeed;
     QGridLayout *gridLayout;
     QPushButton *buttonStart;
@@ -102,6 +103,11 @@ public:
         comboPaintType->setObjectName(QString::fromUtf8("comboPaintType"));
 
         gridLayout_2->addWidget(comboPaintType, 0, 1, 1, 1);
+
+        spinArraySize = new QSpinBox(centralWidget);
+        spinArraySize->setObjectName(QString::fromUtf8("spinArraySize"));
+
+        gridLayout_2->addWidget(spinArraySize, 0, 2, 1, 1);
 
 
         lyGrid->addLayout(gridLayout_2, 1, 1, 1, 1);
