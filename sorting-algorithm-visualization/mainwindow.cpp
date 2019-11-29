@@ -17,12 +17,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->lyPainter->addWidget(&paint);
     ui->comboAlgos->addItems(sorting->getAlgorithms());
     ui->comboShuffle->addItems(sorting->getShuffles());
+    ui->comboPaintType->addItems(paint.getPaintTypes());
     ui->spinAnimSpeed->setValue(sorting->getDefaultAnimSpeed());
-    ui->sliderAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
+//    ui->sliderAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
     ui->spinAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
 
     sorting->setAlgorithm(ui->comboAlgos->currentText());
     sorting->setShuffle(ui->comboShuffle->currentText());
+    paint.setPaintType(ui->comboPaintType->currentText());
     paint.setSizePolicy(QSizePolicy::Policy::Expanding,QSizePolicy::Policy::Expanding);
     paint.setPenWidth(5);
     paint.setSpacing(2);
@@ -40,6 +42,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->comboShuffle, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangeShuffle(QString)));
+
+    connect(ui->comboPaintType, SIGNAL(currentTextChanged(QString)),
+            this, SLOT(onChangePaintType(QString)));
 
     sorting->createArray();
 }
@@ -76,6 +81,10 @@ void MainWindow::onChangeAlgorithm(QString algorithmName) {
 
 void MainWindow::onChangeShuffle(QString shuffleName) {
     sorting->setShuffle(shuffleName);
+}
+
+void MainWindow::onChangePaintType(QString paintTypeName) {
+    paint.setPaintType(paintTypeName);
 }
 
 void MainWindow::on_buttonStart_pressed() {

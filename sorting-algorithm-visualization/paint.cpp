@@ -42,7 +42,15 @@ void Paint::paintEvent(QPaintEvent *) {
             ++iColor;
         }
 
-        painter.drawLine((i-1)*penWidth, this->height(), (i-1)*penWidth, this->height() - numbers[i]);
+        if (paintType == "Bar") {
+            painter.drawLine((i-1)*penWidth, this->height(), (i-1)*penWidth, this->height() - numbers[i]);
+        }
+        else if (paintType == "Star") {
+            painter.drawPoint((i-1)*penWidth, this->height() - numbers[i]);
+        }
+        else {
+            painter.drawLine((i-1)*penWidth, this->height(), (i-1)*penWidth, this->height() - numbers[i]);
+        }
     }
 }
 

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[11];
-    char stringdata0[166];
+    QByteArrayData data[12];
+    char stringdata0[184];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,14 +41,16 @@ QT_MOC_LITERAL(5, 47, 17), // "onChangeAlgorithm"
 QT_MOC_LITERAL(6, 65, 15), // "onChangeShuffle"
 QT_MOC_LITERAL(7, 81, 17), // "onSortingFinished"
 QT_MOC_LITERAL(8, 99, 18), // "onNumberSizeChange"
-QT_MOC_LITERAL(9, 118, 22), // "on_buttonStart_pressed"
-QT_MOC_LITERAL(10, 141, 24) // "on_buttonShuffle_pressed"
+QT_MOC_LITERAL(9, 118, 17), // "onChangePaintType"
+QT_MOC_LITERAL(10, 136, 22), // "on_buttonStart_pressed"
+QT_MOC_LITERAL(11, 159, 24) // "on_buttonShuffle_pressed"
 
     },
     "MainWindow\0StartSorting\0\0onNumbersChanged\0"
     "int*\0onChangeAlgorithm\0onChangeShuffle\0"
     "onSortingFinished\0onNumberSizeChange\0"
-    "on_buttonStart_pressed\0on_buttonShuffle_pressed"
+    "onChangePaintType\0on_buttonStart_pressed\0"
+    "on_buttonShuffle_pressed"
 };
 #undef QT_MOC_LITERAL
 
@@ -58,7 +60,7 @@ static const uint qt_meta_data_MainWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -66,16 +68,17 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   54,    2, 0x06 /* Public */,
+       1,    0,   59,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    4,   55,    2, 0x0a /* Public */,
-       5,    1,   64,    2, 0x0a /* Public */,
-       6,    1,   67,    2, 0x0a /* Public */,
-       7,    0,   70,    2, 0x0a /* Public */,
-       8,    1,   71,    2, 0x0a /* Public */,
-       9,    0,   74,    2, 0x08 /* Private */,
-      10,    0,   75,    2, 0x08 /* Private */,
+       3,    4,   60,    2, 0x0a /* Public */,
+       5,    1,   69,    2, 0x0a /* Public */,
+       6,    1,   72,    2, 0x0a /* Public */,
+       7,    0,   75,    2, 0x0a /* Public */,
+       8,    1,   76,    2, 0x0a /* Public */,
+       9,    1,   79,    2, 0x0a /* Public */,
+      10,    0,   82,    2, 0x08 /* Private */,
+      11,    0,   83,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
@@ -86,6 +89,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    2,
+    QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -104,8 +108,9 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 3: _t->onChangeShuffle((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 4: _t->onSortingFinished(); break;
         case 5: _t->onNumberSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 6: _t->on_buttonStart_pressed(); break;
-        case 7: _t->on_buttonShuffle_pressed(); break;
+        case 6: _t->onChangePaintType((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 7: _t->on_buttonStart_pressed(); break;
+        case 8: _t->on_buttonShuffle_pressed(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -149,13 +154,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }
