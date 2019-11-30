@@ -29,6 +29,7 @@ private:
     int numberMax = 590;
     unsigned int num_comparisons = 0;
     unsigned int num_changes = 0;
+    int color_size = 0;
 
     void shuffle(int* arr,int size);
 
