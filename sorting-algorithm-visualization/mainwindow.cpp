@@ -10,7 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->centralWidget()->setContentsMargins(0,0,0,0);
     setWindowTitle("Sorting Algorithm Visualization");
 
-    ui->labelExecTime->setText("Execution time: 00ms  ");
+    ui->labelChanged->setText("Comparisons\n");
+    ui->labelComparison->setText("Comparisons\n");
+    ui->labelExecTime->setText("Time\n00ms");
 
     sorting = new Sorting(this);
 
@@ -65,12 +67,14 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::onNumbersChanged(int* nums, int size, int* idx, int idxSize) {
+    ui->labelComparison->setText("Comparisons\n" + QString::number(sorting->get_num_comparisons()));
+    ui->labelChanged->setText("Changed\n" + QString::number(sorting->get_num_changed()));
     paint.setPaintData(nums, idx, size, idxSize);
     paint.update();
 }
 
 void MainWindow::onSortingFinished() {
-    ui->labelExecTime->setText(QString::fromStdString("Execution time: "+ std::to_string(timer.elapsed()) +" ms   "));
+    ui->labelExecTime->setText("Time\n" + QString::number(timer.elapsed()) + "ms");
     paint.setAnim(false);
     paint.setLineColor(Qt::yellow);
     paint.update();

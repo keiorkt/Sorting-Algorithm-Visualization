@@ -31,19 +31,21 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *lyPainter;
     QGridLayout *lyGrid;
-    QLabel *labelAlg;
     QGridLayout *gridLayout_2;
-    QSpinBox *spinAnimSpeed;
-    QComboBox *comboPaintType;
     QSpinBox *spinArraySize;
+    QLabel *labelChanged;
+    QSpinBox *spinAnimSpeed;
+    QLabel *labelComparison;
+    QComboBox *comboPaintType;
+    QLabel *labelExecTime;
     QLabel *labelAnimSpeed;
     QGridLayout *gridLayout;
     QPushButton *buttonStart;
     QComboBox *comboShuffle;
     QPushButton *buttonShuffle;
-    QLabel *labelExecTime;
     QComboBox *comboAlgos;
     QSpacerItem *horizontalSpacer;
+    QLabel *labelAlg;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -72,48 +74,52 @@ public:
         lyGrid = new QGridLayout();
         lyGrid->setSpacing(6);
         lyGrid->setObjectName(QString::fromUtf8("lyGrid"));
-        labelAlg = new QLabel(centralWidget);
-        labelAlg->setObjectName(QString::fromUtf8("labelAlg"));
-        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(labelAlg->sizePolicy().hasHeightForWidth());
-        labelAlg->setSizePolicy(sizePolicy1);
-        QFont font;
-        font.setPointSize(10);
-        labelAlg->setFont(font);
-
-        lyGrid->addWidget(labelAlg, 0, 0, 1, 1);
-
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        spinArraySize = new QSpinBox(centralWidget);
+        spinArraySize->setObjectName(QString::fromUtf8("spinArraySize"));
+
+        gridLayout_2->addWidget(spinArraySize, 0, 2, 1, 1);
+
+        labelChanged = new QLabel(centralWidget);
+        labelChanged->setObjectName(QString::fromUtf8("labelChanged"));
+
+        gridLayout_2->addWidget(labelChanged, 0, 4, 1, 1);
+
         spinAnimSpeed = new QSpinBox(centralWidget);
         spinAnimSpeed->setObjectName(QString::fromUtf8("spinAnimSpeed"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(spinAnimSpeed->sizePolicy().hasHeightForWidth());
-        spinAnimSpeed->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(spinAnimSpeed->sizePolicy().hasHeightForWidth());
+        spinAnimSpeed->setSizePolicy(sizePolicy1);
         spinAnimSpeed->setMinimumSize(QSize(80, 23));
 
         gridLayout_2->addWidget(spinAnimSpeed, 0, 0, 1, 1);
+
+        labelComparison = new QLabel(centralWidget);
+        labelComparison->setObjectName(QString::fromUtf8("labelComparison"));
+
+        gridLayout_2->addWidget(labelComparison, 0, 3, 1, 1);
 
         comboPaintType = new QComboBox(centralWidget);
         comboPaintType->setObjectName(QString::fromUtf8("comboPaintType"));
 
         gridLayout_2->addWidget(comboPaintType, 0, 1, 1, 1);
 
-        spinArraySize = new QSpinBox(centralWidget);
-        spinArraySize->setObjectName(QString::fromUtf8("spinArraySize"));
+        labelExecTime = new QLabel(centralWidget);
+        labelExecTime->setObjectName(QString::fromUtf8("labelExecTime"));
 
-        gridLayout_2->addWidget(spinArraySize, 0, 2, 1, 1);
+        gridLayout_2->addWidget(labelExecTime, 0, 5, 1, 1);
 
 
         lyGrid->addLayout(gridLayout_2, 1, 1, 1, 1);
 
         labelAnimSpeed = new QLabel(centralWidget);
         labelAnimSpeed->setObjectName(QString::fromUtf8("labelAnimSpeed"));
+        QFont font;
+        font.setPointSize(10);
         labelAnimSpeed->setFont(font);
         labelAnimSpeed->setAlignment(Qt::AlignCenter);
 
@@ -142,11 +148,6 @@ public:
 
         gridLayout->addWidget(buttonShuffle, 0, 4, 1, 1);
 
-        labelExecTime = new QLabel(centralWidget);
-        labelExecTime->setObjectName(QString::fromUtf8("labelExecTime"));
-
-        gridLayout->addWidget(labelExecTime, 0, 5, 1, 1);
-
         comboAlgos = new QComboBox(centralWidget);
         comboAlgos->setObjectName(QString::fromUtf8("comboAlgos"));
         sizePolicy.setHeightForWidth(comboAlgos->sizePolicy().hasHeightForWidth());
@@ -162,6 +163,17 @@ public:
 
         lyGrid->addLayout(gridLayout, 0, 1, 1, 1);
 
+        labelAlg = new QLabel(centralWidget);
+        labelAlg->setObjectName(QString::fromUtf8("labelAlg"));
+        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(labelAlg->sizePolicy().hasHeightForWidth());
+        labelAlg->setSizePolicy(sizePolicy2);
+        labelAlg->setFont(font);
+
+        lyGrid->addWidget(labelAlg, 0, 0, 1, 1);
+
 
         verticalLayout->addLayout(lyGrid);
 
@@ -175,11 +187,13 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        labelAlg->setText(QCoreApplication::translate("MainWindow", "Algorithm", nullptr));
+        labelChanged->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        labelComparison->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        labelExecTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelAnimSpeed->setText(QCoreApplication::translate("MainWindow", "AnimSpeed", nullptr));
         buttonStart->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
         buttonShuffle->setText(QCoreApplication::translate("MainWindow", "Shuffle", nullptr));
-        labelExecTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        labelAlg->setText(QCoreApplication::translate("MainWindow", "Algorithm", nullptr));
     } // retranslateUi
 
 };
