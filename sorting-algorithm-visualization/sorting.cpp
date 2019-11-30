@@ -6,6 +6,8 @@ Sorting::Sorting(QObject* parent) : QThread(parent){
 
 void Sorting::run(){
     //shuffle(arr,size);
+    num_changes = 0;
+    num_comparisons = 0;
     if (algorithm == "Bubble Sort"){
         sort_bubble(arr,size);
     } else if (algorithm == "Selection Sort"){
@@ -45,15 +47,19 @@ void Sorting::shuffle(int* arr,int size){
         } while (i == j);
         swap(arr,size,i,j);
     }
+
+    num_changes = 0;
+    num_comparisons = 0;
 }
 
 void Sorting::swap(int* arr,int size,int i,int j){
-    if (i>=size || j>=size || i==j){
+    if (i>=size || j>=size || arr[i]==arr[j]){
         return;
     }
     int temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
+    num_changes += 2;
 }
 
 void Sorting::merge(int* arr,int size,int start,int end){
@@ -75,13 +81,20 @@ void Sorting::merge(int* arr,int size,int start,int end){
     int merged = start;
 
     while (left<lsize && right<rsize){
+        ++num_comparisons;
         if (L[left] <= R[right]){
-            arr[merged] = L[left];
+            if (arr[merged] != L[left]){
+                arr[merged] = L[left];
+                ++num_changes;
+            }
             ++left;
             int color[2] = {merged,lsize+merged};
             visualize(arr,size,color,2);
         } else {
-            arr[merged] = R[right];
+            if (arr[merged] != R[right]){
+                arr[merged] = R[right];
+                ++num_changes;
+            }
             ++right;
             int color[2] = {merged,rsize+merged};
             visualize(arr,size,color,2);
@@ -90,12 +103,18 @@ void Sorting::merge(int* arr,int size,int start,int end){
     }
 
     while (left<lsize){
-        arr[merged] = L[left];
+        if (arr[merged] != L[left]){
+            arr[merged] = L[left];
+            ++num_changes;
+        }
         ++left;
         ++merged;
     }
     while (right<rsize){
-        arr[merged] = R[right];
+        if (arr[merged] != R[right]){
+            arr[merged] = R[right];
+            ++num_changes;
+        }
         ++right;
         ++merged;
     }
@@ -108,12 +127,18 @@ void  Sorting::heapify(int *arr, int size, int heapsize, int i){
     int left = 2*i+1;
     int right = 2*i+2;
 
-    if (left<heapsize && arr[left]>arr[maxindex]){
-        maxindex = left;
+    if (left<heapsize){
+        ++num_comparisons;
+        if (arr[left]>arr[maxindex]){
+            maxindex = left;
+        }
     }
 
-    if (right<heapsize && arr[right]>arr[maxindex]){
-        maxindex = right;
+    if (right<heapsize){
+        ++num_comparisons;
+        if (arr[right]>arr[maxindex]){
+            maxindex = right;
+        }
     }
 
     if (maxindex != i){
@@ -131,13 +156,20 @@ void Sorting::insert(int* arr,int size,int i){
 
     int index = i;
     for (index=i;index>0;--index){
+        ++num_comparisons;
         if (arr[index-1]<arr[i]){
             break;
         }
     }
     int temp = arr[i];
     for (int j = i;j>index;--j){
+        if (arr[j] != arr[j-1]){
+            ++num_changes;
+        }
         arr[j] = arr[j-1];
+    }
+    if (arr[index] != temp){
+        ++num_changes;
     }
     arr[index] = temp;
     int color[1] = {index};
@@ -160,6 +192,7 @@ void Sorting::sort_bubble(int *arr, int size){
     while (changed){
         changed = false;
         for (int i=0;i<maxindex;++i){
+            ++num_comparisons;
             if (arr[i]>arr[i+1]){
                 swap(arr,size,i,i+1);
                 changed = true;
@@ -181,6 +214,7 @@ void Sorting::sort_selection(int *arr, int size){
         int minindex = i;
         int minvalue = arr[i];
         for (int j=i+1;j<size;++j){
+            ++num_comparisons;
             if (arr[j]<minvalue){
                 minindex = j;
                 minvalue = arr[j];
@@ -202,15 +236,19 @@ void Sorting::sort_quick(int*arr,int size,int start,int end){
     int right = end-1;
 
     while (true){
+        ++num_comparisons;
         while (arr[left]<pivot && left<end){
             int color[1] = {left};
             visualize(arr,size,color,1);
             ++left;
+            ++num_comparisons;
         }
+        ++num_comparisons;
         while (arr[right]>=pivot && right>left){
             int color[2] = {left,right};
             visualize(arr,size,color,2);
             --right;
+            ++num_comparisons;
         }
         if (left == end){
             sort_quick(arr,size,start,end-1);
@@ -234,6 +272,7 @@ void Sorting::sort_cocktail(int* arr, int size){
     while (start<end){
         changed = false;
         for (int i=start;i<end;++i){
+            ++num_comparisons;
             if (arr[i]>arr[i+1]){
                 swap(arr,size,i,i+1);
                 changed = true;
@@ -246,6 +285,7 @@ void Sorting::sort_cocktail(int* arr, int size){
             break;
         }
         for (int i=end;i>start;--i){
+            ++num_comparisons;
             if (arr[i]<arr[i-1]){
                 swap(arr,size,i-1,i);
                 changed = true;
@@ -286,11 +326,10 @@ void Sorting::sort_gnome(int *arr, int size){
     int i=0;
     while (i<size){
         if (i == 0){
-            ++i;
+            i=1;
         }
-
-        if (arr[i]>=
-                arr[i-1]){
+        ++num_comparisons;
+        if (arr[i]>=arr[i-1]){
             ++i;
         } else {
             swap(arr,size,i-1,i);
