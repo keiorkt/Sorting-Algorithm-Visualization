@@ -177,7 +177,7 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         buttonShuffle->setText(QCoreApplication::translate("MainWindow", "Shuffle", nullptr));
         buttonStart->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Speed", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Speed(0 - 100)", nullptr));
         labelComparison->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelChanges->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelExecTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
