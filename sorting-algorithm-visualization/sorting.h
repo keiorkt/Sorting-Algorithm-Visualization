@@ -26,7 +26,9 @@ private:
     int* arr;
     int animDelay = ANIM_SPEED_STEP;
     int numberMin = 10;
-    int numberMax = 600;
+    int numberMax = 590;
+    unsigned int num_comparisons = 0;
+    unsigned int num_changes = 0;
 
     void shuffle(int* arr,int size);
 
@@ -50,6 +52,8 @@ public:
     int getDefaultSize() {return DEFAULT_SIZE;}
     int getDefaultAnimSpeed() {return DEFAULT_ANIM_SPEED;}
     int getMaxAnimSpeed() {return MAX_ANIM_SPEED;}
+    unsigned int get_num_comparisons() {return num_comparisons;}
+    unsigned int get_num_changed() {return num_changes;}
 
     void sort_bubble(int* arr,int size);
     void sort_insertion(int* arr,int size);
