@@ -26,6 +26,9 @@ void Sorting::run(){
         sort_gnome(arr,size);
     }
 
+    int color[0]={};
+    visualize(arr,size,color,0);
+
     emit done();
 }
 
@@ -338,7 +341,6 @@ void Sorting::sort_gnome(int *arr, int size){
         int color[1] = {i};
         visualize(arr,size,color,1);
     }
-    return;
 }
 
 void Sorting::visualize(int* arr,int size_arr,int* colorindex,int size_color){
