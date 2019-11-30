@@ -23,8 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinAnimSpeed->setValue(sorting->getDefaultAnimSpeed());
 //    ui->sliderAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
     ui->spinAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
-    ui->spinArraySize->setValue(sorting->getDefaultSize());
-    ui->spinArraySize->setMaximum(999);
+//    ui->spinArraySize->setValue(sorting->getDefaultSize());
+//    ui->spinArraySize->setMaximum(999);
 
     sorting->setAlgorithm(ui->comboAlgos->currentText());
     sorting->setShuffle(ui->comboShuffle->currentText());
@@ -50,8 +50,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->comboPaintType, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangePaintType(QString)));
 
-    connect(ui->spinArraySize, SIGNAL(valueChanged(int)),
-            this, SLOT(onNumberSizeChange(int)));
+//    connect(ui->spinArraySize, SIGNAL(valueChanged(int)),
+//            this, SLOT(onNumberSizeChange(int)));
 
     sorting->createArray();
 }
