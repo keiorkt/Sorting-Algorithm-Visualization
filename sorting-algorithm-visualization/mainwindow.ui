@@ -44,7 +44,7 @@
          <widget class="QSpinBox" name="spinArraySize"/>
         </item>
         <item row="0" column="4">
-         <widget class="QLabel" name="labelChanged">
+         <widget class="QLabel" name="labelChanges">
           <property name="text">
            <string>TextLabel</string>
           </property>

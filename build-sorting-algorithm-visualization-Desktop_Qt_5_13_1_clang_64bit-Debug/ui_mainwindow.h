@@ -33,7 +33,7 @@ public:
     QGridLayout *lyGrid;
     QGridLayout *gridLayout_2;
     QSpinBox *spinArraySize;
-    QLabel *labelChanged;
+    QLabel *labelChanges;
     QSpinBox *spinAnimSpeed;
     QLabel *labelComparison;
     QComboBox *comboPaintType;
@@ -82,10 +82,10 @@ public:
 
         gridLayout_2->addWidget(spinArraySize, 0, 2, 1, 1);
 
-        labelChanged = new QLabel(centralWidget);
-        labelChanged->setObjectName(QString::fromUtf8("labelChanged"));
+        labelChanges = new QLabel(centralWidget);
+        labelChanges->setObjectName(QString::fromUtf8("labelChanges"));
 
-        gridLayout_2->addWidget(labelChanged, 0, 4, 1, 1);
+        gridLayout_2->addWidget(labelChanges, 0, 4, 1, 1);
 
         spinAnimSpeed = new QSpinBox(centralWidget);
         spinAnimSpeed->setObjectName(QString::fromUtf8("spinAnimSpeed"));
@@ -187,7 +187,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        labelChanged->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        labelChanges->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelComparison->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelExecTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelAnimSpeed->setText(QCoreApplication::translate("MainWindow", "AnimSpeed", nullptr));
