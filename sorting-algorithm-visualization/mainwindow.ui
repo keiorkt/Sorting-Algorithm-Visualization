@@ -38,26 +38,18 @@
     </item>
     <item>
      <layout class="QGridLayout" name="lyGrid">
-      <item row="0" column="0">
-       <widget class="QLabel" name="labelAlg">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Algorithm</string>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="1">
        <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="2">
+         <widget class="QSpinBox" name="spinArraySize"/>
+        </item>
+        <item row="0" column="4">
+         <widget class="QLabel" name="labelChanges">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="0">
          <widget class="QSpinBox" name="spinAnimSpeed">
           <property name="sizePolicy">
@@ -74,8 +66,22 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="labelComparison">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
+        </item>
         <item row="0" column="1">
          <widget class="QComboBox" name="comboPaintType"/>
+        </item>
+        <item row="0" column="5">
+         <widget class="QLabel" name="labelExecTime">
+          <property name="text">
+           <string>TextLabel</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -131,13 +137,6 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="5">
-         <widget class="QLabel" name="labelExecTime">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0">
          <widget class="QComboBox" name="comboAlgos">
           <property name="sizePolicy">
@@ -168,6 +167,24 @@
          </spacer>
         </item>
        </layout>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelAlg">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Algorithm</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>

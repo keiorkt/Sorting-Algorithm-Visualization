@@ -10,7 +10,9 @@ MainWindow::MainWindow(QWidget *parent)
     this->centralWidget()->setContentsMargins(0,0,0,0);
     setWindowTitle("Sorting Algorithm Visualization");
 
-    ui->labelExecTime->setText("Execution time: 00ms  ");
+    ui->labelChanges->setText("Changes\n");
+    ui->labelComparison->setText("Comparisons\n");
+    ui->labelExecTime->setText("Time\n00ms");
 
     sorting = new Sorting(this);
 
@@ -21,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinAnimSpeed->setValue(sorting->getDefaultAnimSpeed());
 //    ui->sliderAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
     ui->spinAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
+    ui->spinArraySize->setValue(sorting->getDefaultSize());
+    ui->spinArraySize->setMaximum(999);
 
     sorting->setAlgorithm(ui->comboAlgos->currentText());
     sorting->setShuffle(ui->comboShuffle->currentText());
@@ -46,6 +50,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->comboPaintType, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangePaintType(QString)));
 
+    connect(ui->spinArraySize, SIGNAL(valueChanged(int)),
+            this, SLOT(onNumberSizeChange(int)));
+
     sorting->createArray();
 }
 
@@ -60,12 +67,14 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::onNumbersChanged(int* nums, int size, int* idx, int idxSize) {
+    ui->labelComparison->setText("Comparisons\n" + QString::number(sorting->get_num_comparisons()));
+    ui->labelChanges->setText("Changes\n" + QString::number(sorting->get_num_changed()));
     paint.setPaintData(nums, idx, size, idxSize);
     paint.update();
 }
 
 void MainWindow::onSortingFinished() {
-    ui->labelExecTime->setText(QString::fromStdString("Execution time: "+ std::to_string(timer.elapsed()) +" ms   "));
+    ui->labelExecTime->setText("Time\n" + QString::number(timer.elapsed()) + "ms");
     paint.setAnim(false);
     paint.setLineColor(Qt::yellow);
     paint.update();
