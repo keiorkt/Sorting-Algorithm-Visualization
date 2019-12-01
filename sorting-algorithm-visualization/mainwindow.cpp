@@ -54,12 +54,15 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->comboBoxPaintType, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangePaintType(QString)));
 
-//    connect(ui->spinArraySize, SIGNAL(valueChanged(int)),
-//            this, SLOT(onNumberOfSizeChange(int)));
-    connect(ui->SliderSpeed,SIGNAL(valueChanged(int)),ui->spinBoxAnimSpeed,SLOT(setValue(int)));
-    connect(ui->spinBoxAnimSpeed,SIGNAL(valueChanged(int)),ui->SliderSpeed,SLOT(setValue(int)));
+    connect(ui->SliderSpeed, SIGNAL(valueChanged(int)),
+            ui->spinBoxAnimSpeed,SLOT(setValue(int)));
 
-    connect(ui->comboBoxArraySize,SIGNAL(currentTextChanged(QString)),this,SLOT(onNumberOfSizeChange(QString)));
+    connect(ui->spinBoxAnimSpeed, SIGNAL(valueChanged(int)),
+            ui->SliderSpeed, SLOT(setValue(int)));
+
+    connect(ui->comboBoxArraySize, SIGNAL(currentTextChanged(QString)),
+            this, SLOT(onNumberOfSizeChange(QString)));
+
     sorting->createArray();
 }
 

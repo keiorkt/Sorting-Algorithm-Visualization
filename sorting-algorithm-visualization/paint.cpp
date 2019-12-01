@@ -27,6 +27,7 @@ void Paint::paintEvent(QPaintEvent *) {
 
     for (int i{0}; i < size; ++i) {
         pen.setColor(lineColor);
+        pen.setWidth(penWidth);
         painter.setPen(pen);
 
         bool contain{false};
@@ -41,6 +42,7 @@ void Paint::paintEvent(QPaintEvent *) {
         }
 
         if (paintType == "Bar") {
+         // painter.drawLine(x1, y1, x2, y2)
             painter.drawLine((i)*penWidth+50, this->height()-1, (i)*penWidth+50, this->height() - numbers[i]-1);
         }
         else if (paintType == "Star") {

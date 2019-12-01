@@ -17,6 +17,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSlider>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -30,14 +31,16 @@ public:
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout_3;
     QGridLayout *gridLayout;
+    QLabel *label;
+    QComboBox *comboBoxShuffle;
+    QSlider *SliderSpeed;
+    QComboBox *comboBoxAlgorithm;
+    QSpinBox *spinBoxAnimSpeed;
     QComboBox *comboBoxPaintType;
     QPushButton *buttonShuffle;
-    QComboBox *comboBoxShuffle;
-    QComboBox *comboBoxAlgorithm;
     QPushButton *buttonStart;
-    QVBoxLayout *verticalLayout_2;
-    QSpinBox *spinBoxAnimSpeed;
-    QLabel *label;
+    QComboBox *comboBoxArraySize;
+    QLabel *label_2;
     QHBoxLayout *mainPainter;
     QGridLayout *gridLayout_1;
     QGridLayout *gridLayout_2;
@@ -49,14 +52,12 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(725, 700);
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        MainWindow->resize(1200, 700);
+        QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
         MainWindow->setSizePolicy(sizePolicy);
-        MainWindow->setMinimumSize(QSize(725, 700));
-        MainWindow->setMaximumSize(QSize(725, 700));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -69,64 +70,77 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        comboBoxPaintType = new QComboBox(centralWidget);
-        comboBoxPaintType->setObjectName(QString::fromUtf8("comboBoxPaintType"));
+        label = new QLabel(centralWidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout->addWidget(comboBoxPaintType, 0, 9, 1, 1);
-
-        buttonShuffle = new QPushButton(centralWidget);
-        buttonShuffle->setObjectName(QString::fromUtf8("buttonShuffle"));
-        sizePolicy.setHeightForWidth(buttonShuffle->sizePolicy().hasHeightForWidth());
-        buttonShuffle->setSizePolicy(sizePolicy);
-
-        gridLayout->addWidget(buttonShuffle, 0, 10, 1, 1);
+        gridLayout->addWidget(label, 1, 2, 1, 1);
 
         comboBoxShuffle = new QComboBox(centralWidget);
         comboBoxShuffle->setObjectName(QString::fromUtf8("comboBoxShuffle"));
 
-        gridLayout->addWidget(comboBoxShuffle, 0, 5, 1, 1);
+        gridLayout->addWidget(comboBoxShuffle, 0, 6, 1, 1);
+
+        SliderSpeed = new QSlider(centralWidget);
+        SliderSpeed->setObjectName(QString::fromUtf8("SliderSpeed"));
+        SliderSpeed->setOrientation(Qt::Horizontal);
+
+        gridLayout->addWidget(SliderSpeed, 1, 3, 1, 1);
 
         comboBoxAlgorithm = new QComboBox(centralWidget);
         comboBoxAlgorithm->setObjectName(QString::fromUtf8("comboBoxAlgorithm"));
-        sizePolicy.setHeightForWidth(comboBoxAlgorithm->sizePolicy().hasHeightForWidth());
-        comboBoxAlgorithm->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(comboBoxAlgorithm->sizePolicy().hasHeightForWidth());
+        comboBoxAlgorithm->setSizePolicy(sizePolicy1);
         comboBoxAlgorithm->setMinimumSize(QSize(180, 0));
 
         gridLayout->addWidget(comboBoxAlgorithm, 0, 7, 1, 1);
 
-        buttonStart = new QPushButton(centralWidget);
-        buttonStart->setObjectName(QString::fromUtf8("buttonStart"));
-        sizePolicy.setHeightForWidth(buttonStart->sizePolicy().hasHeightForWidth());
-        buttonStart->setSizePolicy(sizePolicy);
-        buttonStart->setMinimumSize(QSize(100, 21));
-
-        gridLayout->addWidget(buttonStart, 0, 11, 1, 1);
-
-        verticalLayout_2 = new QVBoxLayout();
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         spinBoxAnimSpeed = new QSpinBox(centralWidget);
         spinBoxAnimSpeed->setObjectName(QString::fromUtf8("spinBoxAnimSpeed"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(spinBoxAnimSpeed->sizePolicy().hasHeightForWidth());
-        spinBoxAnimSpeed->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(spinBoxAnimSpeed->sizePolicy().hasHeightForWidth());
+        spinBoxAnimSpeed->setSizePolicy(sizePolicy2);
         spinBoxAnimSpeed->setMinimumSize(QSize(80, 23));
 
-        verticalLayout_2->addWidget(spinBoxAnimSpeed);
+        gridLayout->addWidget(spinBoxAnimSpeed, 1, 6, 1, 1);
+
+        comboBoxPaintType = new QComboBox(centralWidget);
+        comboBoxPaintType->setObjectName(QString::fromUtf8("comboBoxPaintType"));
+
+        gridLayout->addWidget(comboBoxPaintType, 0, 8, 1, 1);
+
+        buttonShuffle = new QPushButton(centralWidget);
+        buttonShuffle->setObjectName(QString::fromUtf8("buttonShuffle"));
+        sizePolicy1.setHeightForWidth(buttonShuffle->sizePolicy().hasHeightForWidth());
+        buttonShuffle->setSizePolicy(sizePolicy1);
+
+        gridLayout->addWidget(buttonShuffle, 1, 7, 1, 1);
+
+        buttonStart = new QPushButton(centralWidget);
+        buttonStart->setObjectName(QString::fromUtf8("buttonStart"));
+        sizePolicy1.setHeightForWidth(buttonStart->sizePolicy().hasHeightForWidth());
+        buttonStart->setSizePolicy(sizePolicy1);
+        buttonStart->setMinimumSize(QSize(100, 21));
+
+        gridLayout->addWidget(buttonStart, 1, 8, 1, 1);
+
+        comboBoxArraySize = new QComboBox(centralWidget);
+        comboBoxArraySize->setObjectName(QString::fromUtf8("comboBoxArraySize"));
+
+        gridLayout->addWidget(comboBoxArraySize, 0, 3, 1, 1);
+
+        label_2 = new QLabel(centralWidget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+
+        gridLayout->addWidget(label_2, 0, 2, 1, 1);
 
 
-        gridLayout->addLayout(verticalLayout_2, 0, 0, 1, 1);
-
-
-        gridLayout_3->addLayout(gridLayout, 0, 1, 1, 1);
-
-        label = new QLabel(centralWidget);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setAlignment(Qt::AlignCenter);
-
-        gridLayout_3->addWidget(label, 0, 0, 1, 1);
+        gridLayout_3->addLayout(gridLayout, 1, 0, 1, 1);
 
 
         verticalLayout->addLayout(gridLayout_3);
@@ -175,9 +189,10 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Speed", nullptr));
         buttonShuffle->setText(QCoreApplication::translate("MainWindow", "Shuffle", nullptr));
         buttonStart->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Speed", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "Array Size", nullptr));
         labelComparisons->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelChanges->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
