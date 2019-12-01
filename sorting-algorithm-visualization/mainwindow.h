@@ -33,7 +33,7 @@ public slots:
     void onChangeAlgorithm(QString);
     void onChangeShuffle(QString);
     void onSortingFinished();
-    void onNumberOfSizeChange(int);
+    void onNumberOfSizeChange(QString);
     void onChangePaintType(QString);
 
 private slots:

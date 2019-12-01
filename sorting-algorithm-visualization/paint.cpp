@@ -5,7 +5,7 @@ Paint::Paint(QWidget *parent) : QWidget(parent) {
     setPalette(palette);
     setAutoFillBackground(true);
     animation = false;
-    penWidth = 5;
+    penWidth = 1;
     spacing = 0;
     setPen(QPen(lineColor, penWidth, Qt::PenStyle::SolidLine, Qt::PenCapStyle::SquareCap, Qt::PenJoinStyle::BevelJoin));
 }
@@ -27,6 +27,7 @@ void Paint::paintEvent(QPaintEvent *) {
 
     for (int i{0}; i < size; ++i) {
         pen.setColor(lineColor);
+        pen.setWidth(penWidth);
         painter.setPen(pen);
 
         bool contain{false};
@@ -41,26 +42,13 @@ void Paint::paintEvent(QPaintEvent *) {
         }
 
         if (paintType == "Bar") {
-            painter.drawLine((i-1)*penWidth, this->height(), (i-1)*penWidth, this->height() - numbers[i]);
+            painter.drawLine((i)*penWidth+50, this->height()-1, (i)*penWidth+50, this->height() - numbers[i]-1);
         }
         else if (paintType == "Star") {
-            painter.drawPoint((i-1)*penWidth, this->height() - numbers[i]);
+            painter.drawPoint((i)*penWidth+50, this->height() - numbers[i]);
         }
         else {
-            painter.drawLine((i-1)*penWidth, this->height(), (i-1)*penWidth, this->height() - numbers[i]);
+            painter.drawLine((i)*penWidth+50, this->height()-1, (i)*penWidth+50, this->height() - numbers[i]-1);
         }
     }
 }
-
-void Paint::onNumberOfSizeChange(int size) {
-    penWidth = this->width() / size - spacing;
-    this->update();
-}
-
-// void Paint::setBrush(const QBrush &brush) {
-//     this->brush = brush;
-// }
-
-// void Paint::setPen(const QPen &pen) {
-//     this->pen = pen;
-// }

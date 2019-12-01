@@ -22,16 +22,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBoxPaintType->addItems(paint.getPaintTypes());
     ui->spinBoxAnimSpeed->setValue(sorting->getDefaultAnimSpeed());
     ui->spinBoxAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
-//    ui->sliderAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
-//    ui->spinArraySize->setValue(sorting->getDefaultSize());
-//    ui->spinArraySize->setMaximum(999);
+    ui->SliderSpeed->setValue(sorting->getDefaultAnimSpeed());
+    ui->SliderSpeed->setMaximum(sorting->getMaxAnimSpeed());
+    ui->comboBoxArraySize->addItems(sorting->getSizeList());
+    ui->comboBoxArraySize->setCurrentText("32");
 
     sorting->setAlgorithm(ui->comboBoxAlgorithm->currentText());
     sorting->setShuffle(ui->comboBoxShuffle->currentText());
     paint.setPaintType(ui->comboBoxPaintType->currentText());
     paint.setSizePolicy(QSizePolicy::Policy::Expanding,QSizePolicy::Policy::Expanding);
-    paint.setPenWidth(5);
-    paint.setSpacing(2);
+    paint.setPenWidth(32);
+    paint.setSpacing(0);
     paint.update();
 
     // CONNECT
@@ -50,14 +51,25 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->comboBoxPaintType, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangePaintType(QString)));
 
-//    connect(ui->spinArraySize, SIGNAL(valueChanged(int)),
-//            this, SLOT(onNumberOfSizeChange(int)));
+    connect(ui->SliderSpeed, SIGNAL(valueChanged(int)),
+            ui->spinBoxAnimSpeed,SLOT(setValue(int)));
+
+    connect(ui->spinBoxAnimSpeed, SIGNAL(valueChanged(int)),
+            ui->SliderSpeed, SLOT(setValue(int)));
+
+    connect(ui->comboBoxArraySize, SIGNAL(currentTextChanged(QString)),
+            this, SLOT(onNumberOfSizeChange(QString)));
 
     sorting->createArray();
 }
 
-void MainWindow::onNumberOfSizeChange(int newValue) {
-    paint.setPenWidth(this->width() / newValue);
+void MainWindow::onNumberOfSizeChange(QString sizestring) {
+    int newValue = sizestring.toInt();
+    paint.setPenWidth(1024/newValue);
+    paint.setLineColor(Qt::white);
+    sorting->setSize(newValue);
+    sorting->shuffle();
+    sorting->createArray();
     paint.update();
 }
 
