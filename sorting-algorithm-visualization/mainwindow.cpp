@@ -24,9 +24,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBoxAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
     ui->SliderSpeed->setValue(sorting->getDefaultAnimSpeed());
     ui->SliderSpeed->setMaximum(sorting->getMaxAnimSpeed());
-//    ui->sliderAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
-//    ui->spinArraySize->setValue(sorting->getDefaultSize());
-//    ui->spinArraySize->setMaximum(999);
     ui->comboBoxArraySize->addItems(sorting->getSizeList());
     ui->comboBoxArraySize->setCurrentText("32");
 

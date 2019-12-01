@@ -42,7 +42,6 @@ void Paint::paintEvent(QPaintEvent *) {
         }
 
         if (paintType == "Bar") {
-         // painter.drawLine(x1, y1, x2, y2)
             painter.drawLine((i)*penWidth+50, this->height()-1, (i)*penWidth+50, this->height() - numbers[i]-1);
         }
         else if (paintType == "Star") {
@@ -53,16 +52,3 @@ void Paint::paintEvent(QPaintEvent *) {
         }
     }
 }
-
-void Paint::onNumberOfSizeChange(int size) {
-    penWidth = this->width() / size - spacing;
-    this->update();
-}
-
-// void Paint::setBrush(const QBrush &brush) {
-//     this->brush = brush;
-// }
-
-// void Paint::setPen(const QPen &pen) {
-//     this->pen = pen;
-// }
