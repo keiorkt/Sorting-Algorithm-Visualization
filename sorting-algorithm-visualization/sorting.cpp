@@ -32,7 +32,12 @@ void Sorting::run(){
     emit done();
 }
 
-void Sorting::shuffle(int* arr,int size){
+void Sorting::shuffle(){
+    delete [] arr;
+    arr = new  int[size];
+    for (int i=0;i<size;++i){
+        arr[i] = numberMax*(i+1)/size;
+    }
     if (shuffleType == "Random"){
         for (int i=0;i<size;++i){
             int j = QRandomGenerator::global()->bounded(0,i+1);
@@ -207,7 +212,8 @@ void Sorting::createArray(){
     for (int i=0;i<size;++i){
         arr[i] = numberMax*(i+1)/size;
     }
-    shuffle(arr,size);
+//    shuffle(arr,size);
+    shuffle();
     int index[1] = {0};
     emit changed(arr,size,index,1);
 }
