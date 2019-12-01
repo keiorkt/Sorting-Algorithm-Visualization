@@ -30,20 +30,20 @@ public:
     QVBoxLayout *verticalLayout;
     QGridLayout *gridLayout_3;
     QGridLayout *gridLayout;
-    QComboBox *comboPaintType;
+    QComboBox *comboBoxPaintType;
     QPushButton *buttonShuffle;
-    QComboBox *comboShuffle;
-    QComboBox *comboAlgos;
+    QComboBox *comboBoxShuffle;
+    QComboBox *comboBoxAlgorithm;
     QPushButton *buttonStart;
     QVBoxLayout *verticalLayout_2;
-    QSpinBox *spinAnimSpeed;
+    QSpinBox *spinBoxAnimSpeed;
     QLabel *label;
-    QHBoxLayout *lyPainter;
-    QGridLayout *lyGrid;
+    QHBoxLayout *mainPainter;
+    QGridLayout *gridLayout_1;
     QGridLayout *gridLayout_2;
-    QLabel *labelComparison;
+    QLabel *labelComparisons;
     QLabel *labelChanges;
-    QLabel *labelExecTime;
+    QLabel *labelTime;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -69,10 +69,10 @@ public:
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        comboPaintType = new QComboBox(centralWidget);
-        comboPaintType->setObjectName(QString::fromUtf8("comboPaintType"));
+        comboBoxPaintType = new QComboBox(centralWidget);
+        comboBoxPaintType->setObjectName(QString::fromUtf8("comboBoxPaintType"));
 
-        gridLayout->addWidget(comboPaintType, 0, 9, 1, 1);
+        gridLayout->addWidget(comboBoxPaintType, 0, 9, 1, 1);
 
         buttonShuffle = new QPushButton(centralWidget);
         buttonShuffle->setObjectName(QString::fromUtf8("buttonShuffle"));
@@ -81,18 +81,18 @@ public:
 
         gridLayout->addWidget(buttonShuffle, 0, 10, 1, 1);
 
-        comboShuffle = new QComboBox(centralWidget);
-        comboShuffle->setObjectName(QString::fromUtf8("comboShuffle"));
+        comboBoxShuffle = new QComboBox(centralWidget);
+        comboBoxShuffle->setObjectName(QString::fromUtf8("comboBoxShuffle"));
 
-        gridLayout->addWidget(comboShuffle, 0, 5, 1, 1);
+        gridLayout->addWidget(comboBoxShuffle, 0, 5, 1, 1);
 
-        comboAlgos = new QComboBox(centralWidget);
-        comboAlgos->setObjectName(QString::fromUtf8("comboAlgos"));
-        sizePolicy.setHeightForWidth(comboAlgos->sizePolicy().hasHeightForWidth());
-        comboAlgos->setSizePolicy(sizePolicy);
-        comboAlgos->setMinimumSize(QSize(180, 0));
+        comboBoxAlgorithm = new QComboBox(centralWidget);
+        comboBoxAlgorithm->setObjectName(QString::fromUtf8("comboBoxAlgorithm"));
+        sizePolicy.setHeightForWidth(comboBoxAlgorithm->sizePolicy().hasHeightForWidth());
+        comboBoxAlgorithm->setSizePolicy(sizePolicy);
+        comboBoxAlgorithm->setMinimumSize(QSize(180, 0));
 
-        gridLayout->addWidget(comboAlgos, 0, 7, 1, 1);
+        gridLayout->addWidget(comboBoxAlgorithm, 0, 7, 1, 1);
 
         buttonStart = new QPushButton(centralWidget);
         buttonStart->setObjectName(QString::fromUtf8("buttonStart"));
@@ -105,16 +105,16 @@ public:
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        spinAnimSpeed = new QSpinBox(centralWidget);
-        spinAnimSpeed->setObjectName(QString::fromUtf8("spinAnimSpeed"));
+        spinBoxAnimSpeed = new QSpinBox(centralWidget);
+        spinBoxAnimSpeed->setObjectName(QString::fromUtf8("spinBoxAnimSpeed"));
         QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(spinAnimSpeed->sizePolicy().hasHeightForWidth());
-        spinAnimSpeed->setSizePolicy(sizePolicy1);
-        spinAnimSpeed->setMinimumSize(QSize(80, 23));
+        sizePolicy1.setHeightForWidth(spinBoxAnimSpeed->sizePolicy().hasHeightForWidth());
+        spinBoxAnimSpeed->setSizePolicy(sizePolicy1);
+        spinBoxAnimSpeed->setMinimumSize(QSize(80, 23));
 
-        verticalLayout_2->addWidget(spinAnimSpeed);
+        verticalLayout_2->addWidget(spinBoxAnimSpeed);
 
 
         gridLayout->addLayout(verticalLayout_2, 0, 0, 1, 1);
@@ -131,39 +131,39 @@ public:
 
         verticalLayout->addLayout(gridLayout_3);
 
-        lyPainter = new QHBoxLayout();
-        lyPainter->setSpacing(6);
-        lyPainter->setObjectName(QString::fromUtf8("lyPainter"));
-        lyPainter->setSizeConstraint(QLayout::SetDefaultConstraint);
+        mainPainter = new QHBoxLayout();
+        mainPainter->setSpacing(6);
+        mainPainter->setObjectName(QString::fromUtf8("mainPainter"));
+        mainPainter->setSizeConstraint(QLayout::SetDefaultConstraint);
 
-        verticalLayout->addLayout(lyPainter);
+        verticalLayout->addLayout(mainPainter);
 
-        lyGrid = new QGridLayout();
-        lyGrid->setSpacing(6);
-        lyGrid->setObjectName(QString::fromUtf8("lyGrid"));
+        gridLayout_1 = new QGridLayout();
+        gridLayout_1->setSpacing(6);
+        gridLayout_1->setObjectName(QString::fromUtf8("gridLayout_1"));
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setSpacing(6);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        labelComparison = new QLabel(centralWidget);
-        labelComparison->setObjectName(QString::fromUtf8("labelComparison"));
+        labelComparisons = new QLabel(centralWidget);
+        labelComparisons->setObjectName(QString::fromUtf8("labelComparisons"));
 
-        gridLayout_2->addWidget(labelComparison, 0, 2, 1, 1);
+        gridLayout_2->addWidget(labelComparisons, 0, 2, 1, 1);
 
         labelChanges = new QLabel(centralWidget);
         labelChanges->setObjectName(QString::fromUtf8("labelChanges"));
 
         gridLayout_2->addWidget(labelChanges, 0, 3, 1, 1);
 
-        labelExecTime = new QLabel(centralWidget);
-        labelExecTime->setObjectName(QString::fromUtf8("labelExecTime"));
+        labelTime = new QLabel(centralWidget);
+        labelTime->setObjectName(QString::fromUtf8("labelTime"));
 
-        gridLayout_2->addWidget(labelExecTime, 0, 4, 1, 1);
-
-
-        lyGrid->addLayout(gridLayout_2, 0, 0, 1, 1);
+        gridLayout_2->addWidget(labelTime, 0, 4, 1, 1);
 
 
-        verticalLayout->addLayout(lyGrid);
+        gridLayout_1->addLayout(gridLayout_2, 0, 0, 1, 1);
+
+
+        verticalLayout->addLayout(gridLayout_1);
 
         MainWindow->setCentralWidget(centralWidget);
 
@@ -177,10 +177,10 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         buttonShuffle->setText(QCoreApplication::translate("MainWindow", "Shuffle", nullptr));
         buttonStart->setText(QCoreApplication::translate("MainWindow", "Start", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Speed(0 - 100)", nullptr));
-        labelComparison->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Speed", nullptr));
+        labelComparisons->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         labelChanges->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        labelExecTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        labelTime->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
     } // retranslateUi
 
 };

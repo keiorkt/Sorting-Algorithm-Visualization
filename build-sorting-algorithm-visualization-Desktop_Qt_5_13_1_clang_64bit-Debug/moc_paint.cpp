@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Paint_t {
     QByteArrayData data[4];
-    char stringdata0[31];
+    char stringdata0[33];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,12 +33,12 @@ struct qt_meta_stringdata_Paint_t {
 static const qt_meta_stringdata_Paint_t qt_meta_stringdata_Paint = {
     {
 QT_MOC_LITERAL(0, 0, 5), // "Paint"
-QT_MOC_LITERAL(1, 6, 18), // "onNumberSizeChange"
-QT_MOC_LITERAL(2, 25, 0), // ""
-QT_MOC_LITERAL(3, 26, 4) // "size"
+QT_MOC_LITERAL(1, 6, 20), // "onNumberOfSizeChange"
+QT_MOC_LITERAL(2, 27, 0), // ""
+QT_MOC_LITERAL(3, 28, 4) // "size"
 
     },
-    "Paint\0onNumberSizeChange\0\0size"
+    "Paint\0onNumberOfSizeChange\0\0size"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,7 +70,7 @@ void Paint::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         auto *_t = static_cast<Paint *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->onNumberSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 0: _t->onNumberOfSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     }

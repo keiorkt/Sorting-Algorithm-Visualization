@@ -11,24 +11,24 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle("Sorting Algorithm Visualization");
 
     ui->labelChanges->setText("Changes\n");
-    ui->labelComparison->setText("Comparisons\n");
-    ui->labelExecTime->setText("Time\n00ms");
+    ui->labelComparisons->setText("Comparisons\n");
+    ui->labelTime->setText("Time\n00ms");
 
     sorting = new Sorting(this);
 
-    ui->lyPainter->addWidget(&paint);
-    ui->comboAlgos->addItems(sorting->getAlgorithms());
-    ui->comboShuffle->addItems(sorting->getShuffles());
-    ui->comboPaintType->addItems(paint.getPaintTypes());
-    ui->spinAnimSpeed->setValue(sorting->getDefaultAnimSpeed());
+    ui->mainPainter->addWidget(&paint);
+    ui->comboBoxAlgorithm->addItems(sorting->getAlgorithms());
+    ui->comboBoxShuffle->addItems(sorting->getShuffles());
+    ui->comboBoxPaintType->addItems(paint.getPaintTypes());
+    ui->spinBoxAnimSpeed->setValue(sorting->getDefaultAnimSpeed());
+    ui->spinBoxAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
 //    ui->sliderAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
-    ui->spinAnimSpeed->setMaximum(sorting->getMaxAnimSpeed());
 //    ui->spinArraySize->setValue(sorting->getDefaultSize());
 //    ui->spinArraySize->setMaximum(999);
 
-    sorting->setAlgorithm(ui->comboAlgos->currentText());
-    sorting->setShuffle(ui->comboShuffle->currentText());
-    paint.setPaintType(ui->comboPaintType->currentText());
+    sorting->setAlgorithm(ui->comboBoxAlgorithm->currentText());
+    sorting->setShuffle(ui->comboBoxShuffle->currentText());
+    paint.setPaintType(ui->comboBoxPaintType->currentText());
     paint.setSizePolicy(QSizePolicy::Policy::Expanding,QSizePolicy::Policy::Expanding);
     paint.setPenWidth(5);
     paint.setSpacing(2);
@@ -41,22 +41,22 @@ MainWindow::MainWindow(QWidget *parent)
     connect(sorting, SIGNAL(done()),
             this, SLOT(onSortingFinished()));
 
-    connect(ui->comboAlgos, SIGNAL(currentTextChanged(QString)),
+    connect(ui->comboBoxAlgorithm, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangeAlgorithm(QString)));
 
-    connect(ui->comboShuffle, SIGNAL(currentTextChanged(QString)),
+    connect(ui->comboBoxShuffle, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangeShuffle(QString)));
 
-    connect(ui->comboPaintType, SIGNAL(currentTextChanged(QString)),
+    connect(ui->comboBoxPaintType, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangePaintType(QString)));
 
 //    connect(ui->spinArraySize, SIGNAL(valueChanged(int)),
-//            this, SLOT(onNumberSizeChange(int)));
+//            this, SLOT(onNumberOfSizeChange(int)));
 
     sorting->createArray();
 }
 
-void MainWindow::onNumberSizeChange(int newValue) {
+void MainWindow::onNumberOfSizeChange(int newValue) {
     paint.setPenWidth(this->width() / newValue);
     paint.update();
 }
@@ -66,19 +66,19 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::onNumbersChanged(int* nums, int size, int* idx, int idxSize) {
-    ui->labelComparison->setText("Comparisons\n" + QString::number(sorting->get_num_comparisons()));
+void MainWindow::onNumbersChanged(int* nums, int size, int* idx, int sizeIndices) {
+    ui->labelComparisons->setText("Comparisons\n" + QString::number(sorting->get_num_comparisons()));
     ui->labelChanges->setText("Changes\n" + QString::number(sorting->get_num_changed()));
-    paint.setPaintData(nums, idx, size, idxSize);
+    paint.setPaintData(nums, idx, size, sizeIndices);
     paint.update();
 }
 
 void MainWindow::onSortingFinished() {
-    ui->labelExecTime->setText("Time\n" + QString::number(timer.elapsed()) + "ms");
-    paint.setAnim(false);
+    ui->labelTime->setText("Time\n" + QString::number(timer.elapsed()) + "ms");
+    paint.setAnimation(false);
     paint.setLineColor(Qt::yellow);
     paint.update();
-    isRunning = false;
+    isSorting = false;
     ui->buttonShuffle->setDisabled(false);
     ui->buttonStart->setText("Start");
 }
@@ -97,30 +97,27 @@ void MainWindow::onChangePaintType(QString paintTypeName) {
 }
 
 void MainWindow::on_buttonStart_pressed() {
-    if (!isRunning) {
-        isRunning = true;
+    if (!isSorting) {
+        isSorting = true;
         ui->buttonStart->setText("Stop");
         ui->buttonShuffle->setDisabled(true);
-
-        sorting->setAnimSpeed(ui->spinAnimSpeed->value());
-
-        paint.setAnim(true);
-        paint.resetColor();
-
+        sorting->setAnimSpeed(ui->spinBoxAnimSpeed->value());
+        paint.setAnimation(true);
+        paint.reset();
         timer.start();
         sorting->start();
     }
     else {
-        isRunning = false;
-        paint.setAnim(false);
+        isSorting = false;
+        paint.setAnimation(false);
         ui->buttonShuffle->setDisabled(false);
-        paint.resetColor();
+        paint.reset();
         ui->buttonStart->setText("Start");
         sorting->terminate();
     }
 }
 
 void MainWindow::on_buttonShuffle_pressed() {
-    paint.resetColor();
+    paint.reset();
     sorting->createArray();
 }

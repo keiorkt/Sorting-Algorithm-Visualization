@@ -38,7 +38,7 @@
       <item row="0" column="1">
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="9">
-         <widget class="QComboBox" name="comboPaintType"/>
+         <widget class="QComboBox" name="comboBoxPaintType"/>
         </item>
         <item row="0" column="10">
          <widget class="QPushButton" name="buttonShuffle">
@@ -54,10 +54,10 @@
          </widget>
         </item>
         <item row="0" column="5">
-         <widget class="QComboBox" name="comboShuffle"/>
+         <widget class="QComboBox" name="comboBoxShuffle"/>
         </item>
         <item row="0" column="7">
-         <widget class="QComboBox" name="comboAlgos">
+         <widget class="QComboBox" name="comboBoxAlgorithm">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
             <horstretch>0</horstretch>
@@ -94,7 +94,7 @@
         <item row="0" column="0">
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QSpinBox" name="spinAnimSpeed">
+           <widget class="QSpinBox" name="spinBoxAnimSpeed">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -116,7 +116,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Speed(0 - 100)</string>
+         <string>Speed</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -126,7 +126,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="lyPainter">
+     <layout class="QHBoxLayout" name="mainPainter">
       <property name="spacing">
        <number>6</number>
       </property>
@@ -136,11 +136,11 @@
      </layout>
     </item>
     <item>
-     <layout class="QGridLayout" name="lyGrid">
+     <layout class="QGridLayout" name="gridLayout_1">
       <item row="0" column="0">
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="2">
-         <widget class="QLabel" name="labelComparison">
+         <widget class="QLabel" name="labelComparisons">
           <property name="text">
            <string>TextLabel</string>
           </property>
@@ -154,7 +154,7 @@
          </widget>
         </item>
         <item row="0" column="4">
-         <widget class="QLabel" name="labelExecTime">
+         <widget class="QLabel" name="labelTime">
           <property name="text">
            <string>TextLabel</string>
           </property>

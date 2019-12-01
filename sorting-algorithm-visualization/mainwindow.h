@@ -26,14 +26,14 @@ private:
     Sorting* sorting;
     Paint paint;
     QTime timer;
-    bool isRunning {false};
+    bool isSorting {false};
 
 public slots:
     void onNumbersChanged(int*, int, int*, int);
     void onChangeAlgorithm(QString);
     void onChangeShuffle(QString);
     void onSortingFinished();
-    void onNumberSizeChange(int);
+    void onNumberOfSizeChange(int);
     void onChangePaintType(QString);
 
 private slots:
