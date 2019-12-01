@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../sorting-algorithm-visualization/mainwindow.h"
+#include "../../../../../../../../../Downloads/sorting-algorithm-visualization/mainwindow.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
@@ -88,7 +88,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    2,
+    QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void, QMetaType::QString,    2,
     QMetaType::Void,
     QMetaType::Void,
@@ -107,7 +107,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->onChangeAlgorithm((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->onChangeShuffle((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 4: _t->onSortingFinished(); break;
-        case 5: _t->onNumberOfSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->onNumberOfSizeChange((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 6: _t->onChangePaintType((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 7: _t->on_buttonStart_pressed(); break;
         case 8: _t->on_buttonShuffle_pressed(); break;

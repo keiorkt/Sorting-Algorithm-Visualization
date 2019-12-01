@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../sorting-algorithm-visualization/paint.h"
+#include "../../../../../../../../../Downloads/sorting-algorithm-visualization/paint.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
