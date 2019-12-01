@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[12];
-    char stringdata0[184];
+    char stringdata0[186];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -40,15 +40,15 @@ QT_MOC_LITERAL(4, 42, 4), // "int*"
 QT_MOC_LITERAL(5, 47, 17), // "onChangeAlgorithm"
 QT_MOC_LITERAL(6, 65, 15), // "onChangeShuffle"
 QT_MOC_LITERAL(7, 81, 17), // "onSortingFinished"
-QT_MOC_LITERAL(8, 99, 18), // "onNumberSizeChange"
-QT_MOC_LITERAL(9, 118, 17), // "onChangePaintType"
-QT_MOC_LITERAL(10, 136, 22), // "on_buttonStart_pressed"
-QT_MOC_LITERAL(11, 159, 24) // "on_buttonShuffle_pressed"
+QT_MOC_LITERAL(8, 99, 20), // "onNumberOfSizeChange"
+QT_MOC_LITERAL(9, 120, 17), // "onChangePaintType"
+QT_MOC_LITERAL(10, 138, 22), // "on_buttonStart_pressed"
+QT_MOC_LITERAL(11, 161, 24) // "on_buttonShuffle_pressed"
 
     },
     "MainWindow\0StartSorting\0\0onNumbersChanged\0"
     "int*\0onChangeAlgorithm\0onChangeShuffle\0"
-    "onSortingFinished\0onNumberSizeChange\0"
+    "onSortingFinished\0onNumberOfSizeChange\0"
     "onChangePaintType\0on_buttonStart_pressed\0"
     "on_buttonShuffle_pressed"
 };
@@ -107,7 +107,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 2: _t->onChangeAlgorithm((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 3: _t->onChangeShuffle((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 4: _t->onSortingFinished(); break;
-        case 5: _t->onNumberSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->onNumberOfSizeChange((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 6: _t->onChangePaintType((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 7: _t->on_buttonStart_pressed(); break;
         case 8: _t->on_buttonShuffle_pressed(); break;
