@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QPixmap>
+#include <QMediaPlayer>
 #include <QTime>
 #include <vector>
 #include <string>
@@ -27,6 +28,7 @@ private:
     Paint paint;
     QTime timer;
     bool isSorting {false};
+    QMediaPlayer* player{nullptr};
 
 public slots:
     void onNumbersChanged(int*, int, int*, int);

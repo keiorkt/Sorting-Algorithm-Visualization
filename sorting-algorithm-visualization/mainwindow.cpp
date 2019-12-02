@@ -35,6 +35,9 @@ MainWindow::MainWindow(QWidget *parent)
     paint.setSpacing(0);
     paint.update();
 
+    player = new QMediaPlayer;
+    player->setMedia(QUrl("qrc:/sounds/complete.mp3"));
+
     // CONNECT
     connect(sorting, SIGNAL(changed(int*, int, int*, int)),
             this, SLOT(onNumbersChanged(int*, int, int*, int)));
@@ -75,6 +78,7 @@ void MainWindow::onNumberOfSizeChange(QString sizestring) {
 
 MainWindow::~MainWindow()
 {
+    delete player;
     delete ui;
 }
 
@@ -92,7 +96,12 @@ void MainWindow::onSortingFinished() {
     paint.update();
     isSorting = false;
     ui->buttonShuffle->setDisabled(false);
-    ui->buttonStart->setText("Start");
+    ui->buttonStart->setText("Start");;
+    if (completionsound->state() == QMediaPlayer::PlayingState) {
+        completionsound->setPosition(0);
+    } else if (completionsound->state() == QMediaPlayer::StoppedState) {
+        completionsound->play();
+    }
 }
 
 

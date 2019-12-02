@@ -5,6 +5,7 @@
 #include <QtWidgets>
 #include <QMutex>
 #include <QPainter>
+#include <QMediaPlayer>
 #include <list>
 #include <vector>
 
@@ -50,6 +51,7 @@ private:
     void setPen(const QPen &pen){this->pen = pen;}
     void setBrush(const QBrush &brush){this->brush = brush;}
     QMutex mutex;
+    QMediaPlayer* sortingsound;
 };
 
 #endif // PAINT_H
