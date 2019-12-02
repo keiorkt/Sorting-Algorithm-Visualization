@@ -8,6 +8,8 @@ Paint::Paint(QWidget *parent) : QWidget(parent) {
     penWidth = 1;
     spacing = 0;
     setPen(QPen(lineColor, penWidth, Qt::PenStyle::SolidLine, Qt::PenCapStyle::SquareCap, Qt::PenJoinStyle::BevelJoin));
+    sortingsound = new QMediaPlayer;
+    sortingsound->setMedia(QUrl("qrc:/sounds/sorting.mp3"));
 }
 
 void Paint::setPaintData(int* n, int* idx, int size, int sizeIndices) {
@@ -40,6 +42,8 @@ void Paint::paintEvent(QPaintEvent *) {
             painter.setPen(pen);
             ++iColor;
         }
+
+
         if (paintType == "Bar") {
             painter.drawLine((i)*penWidth+space, this->height(), (i)*penWidth+space, this->height() - numbers[i]);
         }
@@ -48,6 +52,15 @@ void Paint::paintEvent(QPaintEvent *) {
         }
         else {
             painter.drawLine((i)*penWidth+space, this->height()-1, (i)*penWidth+space, this->height() - numbers[i]-1);
+        }
+
+
+        if (animation) {
+            if (sortingsound->state() == QMediaPlayer::PlayingState) {
+                sortingsound->setPosition(0);
+            } else if (sortingsound->state() == QMediaPlayer::StoppedState) {
+                sortingsound->play();
+            }
         }
     }
 }
