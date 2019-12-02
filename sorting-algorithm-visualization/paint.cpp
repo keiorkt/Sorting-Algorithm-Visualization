@@ -24,7 +24,7 @@ void Paint::setPaintData(int* n, int* idx, int size, int sizeIndices) {
 void Paint::paintEvent(QPaintEvent *) {
     QPainter painter(this);
     int iColor{0};
-
+    int space = (this->width()-(penWidth*(size-1)))/2;
     for (int i{0}; i < size; ++i) {
         pen.setColor(lineColor);
         pen.setWidth(penWidth);
@@ -40,15 +40,14 @@ void Paint::paintEvent(QPaintEvent *) {
             painter.setPen(pen);
             ++iColor;
         }
-
         if (paintType == "Bar") {
-            painter.drawLine((i)*penWidth+50, this->height()-1, (i)*penWidth+50, this->height() - numbers[i]-1);
+            painter.drawLine((i)*penWidth+space, this->height(), (i)*penWidth+space, this->height() - numbers[i]);
         }
         else if (paintType == "Star") {
-            painter.drawPoint((i)*penWidth+50, this->height() - numbers[i]);
+            painter.drawPoint((i)*penWidth+space, this->height() - numbers[i]);
         }
         else {
-            painter.drawLine((i)*penWidth+50, this->height()-1, (i)*penWidth+50, this->height() - numbers[i]-1);
+            painter.drawLine((i)*penWidth+space, this->height()-1, (i)*penWidth+space, this->height() - numbers[i]-1);
         }
     }
 }
