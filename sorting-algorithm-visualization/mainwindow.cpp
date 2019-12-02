@@ -78,7 +78,7 @@ void MainWindow::onNumberOfSizeChange(QString sizestring) {
 
 MainWindow::~MainWindow()
 {
-    delete player;
+    delete completionsound;
     delete ui;
 }
 
