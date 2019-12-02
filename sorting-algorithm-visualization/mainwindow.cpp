@@ -35,8 +35,8 @@ MainWindow::MainWindow(QWidget *parent)
     paint.setSpacing(0);
     paint.update();
 
-    player = new QMediaPlayer;
-    player->setMedia(QUrl("qrc:/sounds/complete.mp3"));
+    completionsound = new QMediaPlayer;
+    completionsound->setMedia(QUrl("qrc:/sounds/complete.mp3"));
 
     // CONNECT
     connect(sorting, SIGNAL(changed(int*, int, int*, int)),

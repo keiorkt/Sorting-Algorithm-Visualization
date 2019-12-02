@@ -28,7 +28,7 @@ private:
     Paint paint;
     QTime timer;
     bool isSorting {false};
-    QMediaPlayer* player{nullptr};
+    QMediaPlayer* completionsound;
 
 public slots:
     void onNumbersChanged(int*, int, int*, int);
