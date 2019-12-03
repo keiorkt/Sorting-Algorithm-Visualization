@@ -24,6 +24,8 @@ void Sorting::run(){
         sort_heap(arr,size);
     } else if (algorithm == "Gnome Sort"){
         sort_gnome(arr,size);
+    } else if (algorithm == "Counting Sort"){
+        sort_counting(arr,size);
     }
 
 //    int color[0]={};
@@ -426,6 +428,45 @@ void Sorting::sort_gnome(int *arr, int size){
         visualize(arr,size,color,color_size);
         delete [] color;
     }
+}
+
+void Sorting::sort_counting(int* arr, int size){
+    int* temp = new int[size];
+    int* count = new int[numberMax+1];
+    for (int i=0;i<numberMax+1;++i){
+        count[i] = 0;
+    }
+    for (int i=0;i<size;++i){
+        count[arr[i]]++;
+        color_size = 1;
+        color = new int[color_size];
+        color[0] = i;
+        visualize(arr,size,color,color_size);
+        delete [] color;
+    }
+
+    for (int i=1;i<numberMax+1;++i){
+        count[i] += count[i-1];
+    }
+
+    for (int i=0;i<size;++i){
+        temp[count[arr[i]]-1] = arr[i];
+        --count[arr[i]];
+    }
+
+    for (int i=0;i<size;++i){
+        if (arr[i] !=temp[i]){
+            arr[i] = temp[i];
+            ++num_changes;
+        }
+        color_size = 1;
+        color = new int[color_size];
+        color[0] = i;
+        visualize(arr,size,color,color_size);
+        delete [] color;
+    }
+    delete [] temp;
+    delete [] count;
 }
 
 void Sorting::visualize(int* arr,int size_arr,int* colorindex,int size_color){
