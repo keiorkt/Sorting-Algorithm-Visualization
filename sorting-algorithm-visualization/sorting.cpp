@@ -25,7 +25,11 @@ void Sorting::run(){
     } else if (algorithm == "Gnome Sort"){
         sort_gnome(arr,size);
     } else if (algorithm == "Counting Sort"){
-        sort_counting(arr,size);
+        sort_counting(arr,size,numberMax+1,1);
+    } else if (algorithm == "Radix Sort (Base 2)"){
+        sort_radix(arr,size,2);
+    } else if (algorithm == "Radix Sort (Base 10)"){
+        sort_radix(arr,size,10);
     }
 
 //    int color[0]={};
@@ -430,14 +434,14 @@ void Sorting::sort_gnome(int *arr, int size){
     }
 }
 
-void Sorting::sort_counting(int* arr, int size){
+void Sorting::sort_counting(int* arr, int size,int base,int exp){
     int* temp = new int[size];
-    int* count = new int[numberMax+1];
-    for (int i=0;i<numberMax+1;++i){
+    int* count = new int[base];
+    for (int i=0;i<base;++i){
         count[i] = 0;
     }
     for (int i=0;i<size;++i){
-        count[arr[i]]++;
+        count[(arr[i]/exp)%base]++;
         color_size = 1;
         color = new int[color_size];
         color[0] = i;
@@ -445,13 +449,13 @@ void Sorting::sort_counting(int* arr, int size){
         delete [] color;
     }
 
-    for (int i=1;i<numberMax+1;++i){
+    for (int i=1;i<base;++i){
         count[i] += count[i-1];
     }
 
-    for (int i=0;i<size;++i){
-        temp[count[arr[i]]-1] = arr[i];
-        --count[arr[i]];
+    for (int i=size-1;i>=0;--i){
+        temp[count[(arr[i]/exp)%base]-1] = arr[i];
+        --count[(arr[i]/exp)%base];
     }
 
     for (int i=0;i<size;++i){
@@ -467,6 +471,12 @@ void Sorting::sort_counting(int* arr, int size){
     }
     delete [] temp;
     delete [] count;
+}
+
+void Sorting::sort_radix(int *arr, int size, int base){
+    for (int exp=1;numberMax/exp>0;exp*=base){
+        sort_counting(arr,size,base,exp);
+    }
 }
 
 void Sorting::visualize(int* arr,int size_arr,int* colorindex,int size_color){
