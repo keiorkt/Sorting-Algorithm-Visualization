@@ -48,11 +48,11 @@ void Sorting::shuffle(){
             swap(arr,size,i,size-1-i);
         }
     } else if (shuffleType == "Almost sorted"){
-        int i = QRandomGenerator::global()->bounded(0,size);
+        int i = QRandomGenerator::global()->bounded(0,size-1);
         int j;
         do {
             j = QRandomGenerator::global()->bounded(0,size);
-        } while (i == j);
+        } while (arr[i] == arr[j]);
         swap(arr,size,i,j);
     }
 
@@ -99,10 +99,10 @@ void Sorting::merge(int* arr,int size,int start,int end){
 //            int color[2] = {merged,lsize+merged};
 //            visualize(arr,size,color,2);
             color_size = 2;
-            int* color = new int[color_size];
+            color = new int[color_size];
             color[0] = merged;
-            color[1] = lsize+merged;
-            visualize(arr,size,color,2);
+            color[1] = start-1+lsize+right;
+            visualize(arr,size,color,color_size);
             delete [] color;
         } else {
             if (arr[merged] != R[right]){
@@ -113,10 +113,10 @@ void Sorting::merge(int* arr,int size,int start,int end){
 //            int color[2] = {merged,rsize+merged};
 //            visualize(arr,size,color,2);
             color_size = 2;
-            int* color = new int[color_size];
+            color = new int[color_size];
             color[0] = merged;
-            color[1] = rsize+merged;
-            visualize(arr,size,color,2);
+            color[1] = start-1+lsize+right;
+            visualize(arr,size,color,color_size);
             delete [] color;
         }
         ++merged;
@@ -127,6 +127,11 @@ void Sorting::merge(int* arr,int size,int start,int end){
             arr[merged] = L[left];
             ++num_changes;
         }
+        color_size = 1;
+        color = new int[color_size];
+        color[0] = merged;
+        visualize(arr,size,color,color_size);
+        delete [] color;
         ++left;
         ++merged;
     }
@@ -135,6 +140,12 @@ void Sorting::merge(int* arr,int size,int start,int end){
             arr[merged] = R[right];
             ++num_changes;
         }
+        color_size = 2;
+        color = new int[color_size];
+        color[0] = merged;
+        color[1] = start-1+lsize+right;
+        visualize(arr,size,color,color_size);
+        delete [] color;
         ++right;
         ++merged;
     }
@@ -166,7 +177,7 @@ void  Sorting::heapify(int *arr, int size, int heapsize, int i){
 //        int color[1] = {i};
 //        visualize(arr,size,color,1);
         color_size = 1;
-        int* color = new int[color_size];
+        color = new int[color_size];
         color[0] = i;
         visualize(arr,size,color,color_size);
         delete [] color;
@@ -201,7 +212,7 @@ void Sorting::insert(int* arr,int size,int i){
 //    int color[1] = {index};
 //    visualize(arr,size,color,1);
     color_size = 1;
-    int* color = new int[color_size];
+    color = new int[color_size];
     color[0] = index;
     visualize(arr,size,color,color_size);
     delete [] color;
@@ -232,11 +243,12 @@ void Sorting::sort_bubble(int *arr, int size){
 //            int color[1] = {i};
 //            visualize(arr,size,color,1);
             color_size = 1;
-            int* color= new int[color_size];
-            color[0]=i;
+            color= new int[color_size];
+            color[0]=i+1;
             visualize(arr,size,color,color_size);
             delete [] color;
         }
+        --maxindex;
     }
 }
 
@@ -258,10 +270,11 @@ void Sorting::sort_selection(int *arr, int size){
             }
 //            int color[2] = {i,j};
 //            visualize(arr,size,color,2);
-            color_size = 2;
-            int* color = new int[color_size];
+            color_size = 3;
+            color = new int[color_size];
             color[0] = i;
             color[1] = j;
+            color[2] = minindex;
             visualize(arr,size,color,color_size);
             delete [] color;
         }
@@ -284,7 +297,7 @@ void Sorting::sort_quick(int*arr,int size,int start,int end){
 //            int color[1] = {left};
 //            visualize(arr,size,color,1);
             color_size = 1;
-            int* color = new int[color_size];
+            color = new int[color_size];
             color[0] = left;
             visualize(arr,size,color,color_size);
             delete [] color;
@@ -297,7 +310,7 @@ void Sorting::sort_quick(int*arr,int size,int start,int end){
 //            int color[2] = {left,right};
 //            visualize(arr,size,color,2);
             color_size = 2;
-            int* color = new int[color_size];
+            color = new int[color_size];
             color[0] = left;
             color[1] =  right;
             visualize(arr,size,color,color_size);
@@ -335,8 +348,8 @@ void Sorting::sort_cocktail(int* arr, int size){
 //            int color[1] = {i};
 //            visualize(arr,size,color,1);
             color_size = 1;
-            int* color = new int[color_size];
-            color[0] = i;
+            color = new int[color_size];
+            color[0] = i+1;
             visualize(arr,size,color,color_size);
             delete [] color;
         }
@@ -353,8 +366,8 @@ void Sorting::sort_cocktail(int* arr, int size){
 //            int color[1] = {i};
 //            visualize(arr,size,color,1);
             color_size = 1;
-            int* color = new int[color_size];
-            color[0] = i;
+            color = new int[color_size];
+            color[0] = i-1;
             visualize(arr,size,color,color_size);
             delete [] color;
         }
@@ -384,7 +397,7 @@ void Sorting::sort_heap(int *arr, int size){
 //        int color[1] = {i};
 //        visualize(arr,size,color,1);
         color_size = 1;
-        int* color = new int[color_size];
+        color = new int[color_size];
         color[0] = i;
         visualize(arr,size,color,color_size);
         delete [] color;
@@ -408,7 +421,7 @@ void Sorting::sort_gnome(int *arr, int size){
 //        int color[1] = {i};
 //        visualize(arr,size,color,1);
         color_size = 1;
-        int* color = new int[color_size];
+        color = new int[color_size];
         color[0] = i;
         visualize(arr,size,color,color_size);
         delete [] color;
