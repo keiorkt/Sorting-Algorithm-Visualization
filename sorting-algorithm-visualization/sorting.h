@@ -20,7 +20,7 @@ private:
     QObject* parent;
     QString algorithm;
     QString shuffleType;
-    QStringList algorithms = {"Bubble Sort","Insertion Sort","Selection Sort","Quicksort","Cocktail Sort","Merge Sort","Heap Sort","Gnome Sort"};
+    QStringList algorithms = {"Bubble Sort","Insertion Sort","Selection Sort","Quicksort","Cocktail Sort","Merge Sort","Heap Sort","Gnome Sort","Counting Sort"};
     QStringList shuffles = {"Random", "Reverse", "Almost sorted"};
     QStringList sizelist = {"2","4","8","16","32","64","128","256","512","1024"};
     int size = DEFAULT_SIZE;
@@ -67,6 +67,7 @@ public:
     void sort_merge(int* arr,int size,int start,int end);
     void sort_heap(int* arr,int size);
     void sort_gnome(int* arr,int size);
+    void sort_counting(int* arr,int size);
 
     void visualize(int* arr,int size_arr,int* colorindex,int size_color);
 
