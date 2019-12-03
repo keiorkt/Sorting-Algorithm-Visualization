@@ -97,7 +97,7 @@ void MainWindow::onSortingFinished() {
     paint.update();
     isSorting = false;
     ui->buttonShuffle->setDisabled(false);
-    ui->buttonStart->setText("Start");;
+    ui->buttonStart->setText("Start");
     if (completionsound->state() == QMediaPlayer::PlayingState) {
         completionsound->setPosition(0);
     } else if (completionsound->state() == QMediaPlayer::StoppedState) {
@@ -141,5 +141,6 @@ void MainWindow::on_buttonStart_pressed() {
 
 void MainWindow::on_buttonShuffle_pressed() {
     paint.resetLineColor();
+    ui->labelTime->setText("Time\n0ms");
     sorting->createArray();
 }
