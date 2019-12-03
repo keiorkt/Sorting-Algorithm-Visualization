@@ -41,8 +41,5 @@ public slots:
 private slots:
     void on_buttonStart_pressed();
     void on_buttonShuffle_pressed();
-
-signals:
-    void StartSorting();
 };
 #endif // MAINWINDOW_H

@@ -66,6 +66,12 @@ MainWindow::MainWindow(QWidget *parent)
     sorting->createArray();
 }
 
+MainWindow::~MainWindow()
+{
+    delete completionsound;
+    delete ui;
+}
+
 void MainWindow::onNumberOfSizeChange(QString sizestring) {
     int newValue = sizestring.toInt();
     paint.setPenWidth(1024/newValue);
@@ -76,22 +82,17 @@ void MainWindow::onNumberOfSizeChange(QString sizestring) {
     paint.update();
 }
 
-MainWindow::~MainWindow()
-{
-    delete completionsound;
-    delete ui;
-}
 
-void MainWindow::onNumbersChanged(int* nums, int size, int* idx, int sizeIndices) {
+void MainWindow::onNumbersChanged(int* nums, int size, int* colorIndices, int sizeColorIndices) {
     ui->labelComparisons->setText("Comparisons\n" + QString::number(sorting->get_num_comparisons()));
     ui->labelChanges->setText("Changes\n" + QString::number(sorting->get_num_changed()));
-    paint.setPaintData(nums, idx, size, sizeIndices);
+    paint.setPaintData(nums, colorIndices, size, sizeColorIndices);
     paint.update();
 }
 
 void MainWindow::onSortingFinished() {
     ui->labelTime->setText("Time\n" + QString::number(timer.elapsed()) + "ms");
-    paint.setAnimation(false);
+    paint.setAnimate(false);
     paint.setLineColor(Qt::yellow);
     paint.update();
     isSorting = false;
@@ -123,22 +124,22 @@ void MainWindow::on_buttonStart_pressed() {
         ui->buttonStart->setText("Stop");
         ui->buttonShuffle->setDisabled(true);
         sorting->setAnimSpeed(ui->spinBoxAnimSpeed->value());
-        paint.setAnimation(true);
-        paint.reset();
+        paint.setAnimate(true);
+        paint.resetLineColor();
         timer.start();
         sorting->start();
     }
     else {
         isSorting = false;
-        paint.setAnimation(false);
+        paint.setAnimate(false);
         ui->buttonShuffle->setDisabled(false);
-        paint.reset();
+        paint.resetLineColor();
         ui->buttonStart->setText("Start");
         sorting->terminate();
     }
 }
 
 void MainWindow::on_buttonShuffle_pressed() {
-    paint.reset();
+    paint.resetLineColor();
     sorting->createArray();
 }

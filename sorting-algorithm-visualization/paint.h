@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QtWidgets>
-#include <QMutex>
 #include <QPainter>
 #include <QMediaPlayer>
 #include <list>
@@ -17,41 +16,38 @@ class Paint : public QWidget {
     Q_OBJECT
 public:
     explicit Paint(QWidget *parent = nullptr);
+    void setAnimate(bool anim) { animate = anim;}
     void setLineColor(QColor color) { lineColor = color;}
-    void setAnimation(bool anim) { animation = anim;}
     void setPaintData(int*, int*, int, int);
+    void setPaintType(QString option) {paintType = option;}
     void setPenWidth(int width) { penWidth = width > MAX_PEN_WIDTH ? MAX_PEN_WIDTH : width;}
     void setSpacing(int space) { spacing = space;}
-    void reset() {lineColor = DEFAULT_LINE_COLOR;}
-    void setPaintType(QString option) {paintType = option;}
     QStringList getPaintTypes() {return paintTypes;}
+    void resetLineColor() {lineColor = DEFAULT_LINE_COLOR;}
 
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 private:
     QPalette palette;
-    QBrush brush;
     QPen pen;
-    QColor lineColor {DEFAULT_LINE_COLOR};
-    QColor backgroundColor {DEFAULT_BACKGROUND_COLOR};
     QString paintType;
     QStringList paintTypes = {"Bar", "Star"};
-    std::vector<QColor> colors = {Qt::red, Qt::green, Qt::cyan, Qt::magenta, Qt::yellow, Qt::white};
+    QColor lineColor {DEFAULT_LINE_COLOR};
+    QColor backgroundColor {DEFAULT_BACKGROUND_COLOR};
+    std::vector<QColor> colors = {Qt::red, Qt::green};
+    QMediaPlayer* sortingsound;
 
-    bool animation;
+    bool animate;
     int penWidth;
     int spacing;
 
     int* numbers;
-    int* indices;
+    int* colorIndices;
     int size;
-    int sizeIndices;
+    int sizeColorIndices;
 
     void setPen(const QPen &pen){this->pen = pen;}
-    void setBrush(const QBrush &brush){this->brush = brush;}
-    QMutex mutex;
-    QMediaPlayer* sortingsound;
 };
 
 #endif // PAINT_H
