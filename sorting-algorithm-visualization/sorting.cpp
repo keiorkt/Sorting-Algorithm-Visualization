@@ -30,6 +30,10 @@ void Sorting::run(){
         sort_radix(arr,size,2);
     } else if (algorithm == "Radix Sort (Base 10)"){
         sort_radix(arr,size,10);
+    } else if (algorithm == "Comb Sort"){
+        sort_comb(arr,size);
+    } else if (algorithm == "Odd Even Sort"){
+        sort_oddeven(arr,size);
     }
 
 //    int color[0]={};
@@ -476,6 +480,70 @@ void Sorting::sort_counting(int* arr, int size,int base,int exp){
 void Sorting::sort_radix(int *arr, int size, int base){
     for (int exp=1;numberMax/exp>0;exp*=base){
         sort_counting(arr,size,base,exp);
+    }
+}
+
+void Sorting::sort_comb(int* arr,int size){
+    int gap = size*13/20;
+    bool changed = true;
+
+    while (changed){
+        gap = gap*10/13;
+        if (gap < 1){
+            gap = 1;
+            changed = false;
+        }
+
+        int i=0;
+        while (i+gap < size){
+            ++num_comparisons;
+            if (arr[i]>arr[i+gap]){
+                swap(arr,size,i,i+gap);
+                changed = true;
+            }
+            color_size = 2;
+            color = new int[color_size];
+            color[0] = i;
+            color[1] = i+gap;
+            visualize(arr,size,color,color_size);
+            delete [] color;
+
+            ++i;
+        }
+    }
+}
+
+void Sorting::sort_oddeven(int *arr, int size){
+    bool changed = true;
+    while (changed){
+        changed = false;
+        for (int i=1;i<size-1;i+=2){
+            ++num_comparisons;
+            if (arr[i]>arr[i+1]){
+                swap(arr,size,i,i+1);
+                changed = true;
+            }
+            color_size = 2;
+            color = new int[color_size];
+            color[0] = i;
+            color[1] = i+1;
+            visualize(arr,size,color,color_size);
+            delete [] color;
+        }
+
+        for (int i=0;i<size-1;i+=2){
+            ++num_comparisons;
+            if (arr[i]>arr[i+1]){
+                swap(arr,size,i,i+1);
+                changed = true;
+            }
+            color_size = 2;
+            color = new int[color_size];
+            color[0] = i;
+            color[1] = i+1;
+            visualize(arr,size,color,color_size);
+            delete [] color;
+        }
     }
 }
 
