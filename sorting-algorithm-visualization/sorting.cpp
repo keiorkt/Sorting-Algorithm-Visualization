@@ -5,7 +5,6 @@ Sorting::Sorting(QObject* parent) : QThread(parent){
 }
 
 void Sorting::run(){
-    //shuffle(arr,size);
     num_changes = 0;
     num_comparisons = 0;
     if (algorithm == "Bubble Sort"){
@@ -25,7 +24,7 @@ void Sorting::run(){
     } else if (algorithm == "Gnome Sort"){
         sort_gnome(arr,size);
     } else if (algorithm == "Counting Sort"){
-        sort_counting(arr,size,numberMax+1,1);
+        sort_counting(arr,size,MAX_NUMBER+1,1);
     } else if (algorithm == "Radix Sort (Base 2)"){
         sort_radix(arr,size,2);
     } else if (algorithm == "Radix Sort (Base 10)"){
@@ -36,17 +35,15 @@ void Sorting::run(){
         sort_oddeven(arr,size);
     }
 
-//    int color[0]={};
-//    visualize(arr,size,color,0);
-
     emit done();
 }
 
+//Shuffles the array (randomly, in reverse order or swap two random elements)
 void Sorting::shuffle(){
     delete [] arr;
     arr = new  int[size];
     for (int i=0;i<size;++i){
-        arr[i] = numberMax*(i+1)/size;
+        arr[i] = MAX_NUMBER*(i+1)/size;
     }
     if (shuffleType == "Random"){
         for (int i=0;i<size;++i){
@@ -70,6 +67,7 @@ void Sorting::shuffle(){
     num_comparisons = 0;
 }
 
+//Swap two chosen elements if they are different
 void Sorting::swap(int* arr,int size,int i,int j){
     if (i>=size || j>=size || arr[i]==arr[j]){
         return;
@@ -80,6 +78,7 @@ void Sorting::swap(int* arr,int size,int i,int j){
     num_changes += 2;
 }
 
+//Divide an array into two smaller arrays of similar size and merge them into one, to be used in Merge Sort
 void Sorting::merge(int* arr,int size,int start,int end){
     int div = (start+end)/2;
     int lsize = div-start+1;
@@ -106,28 +105,26 @@ void Sorting::merge(int* arr,int size,int start,int end){
                 ++num_changes;
             }
             ++left;
-//            int color[2] = {merged,lsize+merged};
-//            visualize(arr,size,color,2);
+//          visualize
             color_size = 2;
-            color = new int[color_size];
-            color[0] = merged;
-            color[1] = start-1+lsize+right;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = merged;
+            color_index[1] = start-1+lsize+right;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
         } else {
             if (arr[merged] != R[right]){
                 arr[merged] = R[right];
                 ++num_changes;
             }
             ++right;
-//            int color[2] = {merged,rsize+merged};
-//            visualize(arr,size,color,2);
+//          visualize
             color_size = 2;
-            color = new int[color_size];
-            color[0] = merged;
-            color[1] = start-1+lsize+right;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = merged;
+            color_index[1] = start-1+lsize+right;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
         }
         ++merged;
     }
@@ -137,11 +134,12 @@ void Sorting::merge(int* arr,int size,int start,int end){
             arr[merged] = L[left];
             ++num_changes;
         }
+//        visualize
         color_size = 1;
-        color = new int[color_size];
-        color[0] = merged;
-        visualize(arr,size,color,color_size);
-        delete [] color;
+        color_index = new int[color_size];
+        color_index[0] = merged;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
         ++left;
         ++merged;
     }
@@ -150,12 +148,13 @@ void Sorting::merge(int* arr,int size,int start,int end){
             arr[merged] = R[right];
             ++num_changes;
         }
+//        visualize
         color_size = 2;
-        color = new int[color_size];
-        color[0] = merged;
-        color[1] = start-1+lsize+right;
-        visualize(arr,size,color,color_size);
-        delete [] color;
+        color_index = new int[color_size];
+        color_index[0] = merged;
+        color_index[1] = start-1+lsize+right;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
         ++right;
         ++merged;
     }
@@ -163,6 +162,7 @@ void Sorting::merge(int* arr,int size,int start,int end){
     delete [] R;
 }
 
+//Heapify, to be used in Heapsort.
 void  Sorting::heapify(int *arr, int size, int heapsize, int i){
     int maxindex = i;
     int left = 2*i+1;
@@ -184,18 +184,18 @@ void  Sorting::heapify(int *arr, int size, int heapsize, int i){
 
     if (maxindex != i){
         swap(arr,size,i,maxindex);
-//        int color[1] = {i};
-//        visualize(arr,size,color,1);
+//        visualize
         color_size = 1;
-        color = new int[color_size];
-        color[0] = i;
-        visualize(arr,size,color,color_size);
-        delete [] color;
+        color_index = new int[color_size];
+        color_index[0] = i;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
         heapify(arr,size,heapsize,maxindex);
 
     }
 }
 
+//Find the correct place and insert the element into the place, to be used in Insertion Sort
 void Sorting::insert(int* arr,int size,int i){
     if (i>size-1){
         return;
@@ -204,6 +204,12 @@ void Sorting::insert(int* arr,int size,int i){
     int index = i;
     for (index=i;index>0;--index){
         ++num_comparisons;
+//        visualize
+        color_size = 1;
+        color_index = new int[color_size];
+        color_index[0] = index;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
         if (arr[index-1]<arr[i]){
             break;
         }
@@ -214,31 +220,37 @@ void Sorting::insert(int* arr,int size,int i){
             ++num_changes;
         }
         arr[j] = arr[j-1];
+//        visualize
+        color_size = 1;
+        color_index = new int[color_size];
+        color_index[0] = j;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
     }
     if (arr[index] != temp){
         ++num_changes;
     }
     arr[index] = temp;
-//    int color[1] = {index};
-//    visualize(arr,size,color,1);
+//  visualize
     color_size = 1;
-    color = new int[color_size];
-    color[0] = index;
-    visualize(arr,size,color,color_size);
-    delete [] color;
+    color_index = new int[color_size];
+    color_index[0] = index;
+    visualize(arr,size,color_index,color_size);
+    delete [] color_index;
 }
 
+//create array of specific size
 void Sorting::createArray(){
     arr = new int[size];
     for (int i=0;i<size;++i){
-        arr[i] = numberMax*(i+1)/size;
+        arr[i] = MAX_NUMBER*(i+1)/size;
     }
-//    shuffle(arr,size);
     shuffle();
     int index[1] = {0};
     emit changed(arr,size,index,1);
 }
 
+//Bubble Sort
 void Sorting::sort_bubble(int *arr, int size){
     bool changed = true;
     int maxindex = size-1;
@@ -250,24 +262,25 @@ void Sorting::sort_bubble(int *arr, int size){
                 swap(arr,size,i,i+1);
                 changed = true;
             }
-//            int color[1] = {i};
-//            visualize(arr,size,color,1);
+//            visualize
             color_size = 1;
-            color= new int[color_size];
-            color[0]=i+1;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index= new int[color_size];
+            color_index[0]=i+1;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
         }
         --maxindex;
     }
 }
 
+//Insertion Sort
 void Sorting::sort_insertion(int* arr, int size){
     for (int i=1;i<size;++i){
         insert(arr,size,i);
     }
 }
 
+//Selection Sort
 void Sorting::sort_selection(int *arr, int size){
     for (int i=0;i<size;++i){
         int minindex = i;
@@ -278,20 +291,20 @@ void Sorting::sort_selection(int *arr, int size){
                 minindex = j;
                 minvalue = arr[j];
             }
-//            int color[2] = {i,j};
-//            visualize(arr,size,color,2);
+//            visualize
             color_size = 3;
-            color = new int[color_size];
-            color[0] = i;
-            color[1] = j;
-            color[2] = minindex;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = i;
+            color_index[1] = j;
+            color_index[2] = minindex;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
         }
         swap(arr,size,i,minindex);
     }
 }
 
+//Quicksort
 void Sorting::sort_quick(int*arr,int size,int start,int end){
     if (start >= end){
         return;
@@ -304,27 +317,25 @@ void Sorting::sort_quick(int*arr,int size,int start,int end){
     while (true){
         ++num_comparisons;
         while (arr[left]<pivot && left<end){
-//            int color[1] = {left};
-//            visualize(arr,size,color,1);
+//            visualize
             color_size = 1;
-            color = new int[color_size];
-            color[0] = left;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = left;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
 
             ++left;
             ++num_comparisons;
         }
         ++num_comparisons;
         while (arr[right]>=pivot && right>left){
-//            int color[2] = {left,right};
-//            visualize(arr,size,color,2);
+//            visualize
             color_size = 2;
-            color = new int[color_size];
-            color[0] = left;
-            color[1] =  right;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = left;
+            color_index[1] =  right;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
             --right;
             ++num_comparisons;
         }
@@ -343,6 +354,7 @@ void Sorting::sort_quick(int*arr,int size,int start,int end){
     }
 }
 
+//Cocktail sort (aka Cocktail Shaker Sort)
 void Sorting::sort_cocktail(int* arr, int size){
     int start = 0;
     int end = size-1;
@@ -355,13 +367,12 @@ void Sorting::sort_cocktail(int* arr, int size){
                 swap(arr,size,i,i+1);
                 changed = true;
             }
-//            int color[1] = {i};
-//            visualize(arr,size,color,1);
+//            visualize
             color_size = 1;
-            color = new int[color_size];
-            color[0] = i+1;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = i+1;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
         }
         --end;
         if (changed == false){
@@ -373,13 +384,12 @@ void Sorting::sort_cocktail(int* arr, int size){
                 swap(arr,size,i-1,i);
                 changed = true;
             }
-//            int color[1] = {i};
-//            visualize(arr,size,color,1);
+//            visualize
             color_size = 1;
-            color = new int[color_size];
-            color[0] = i-1;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = i-1;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
         }
         if (changed == false){
             break;
@@ -388,6 +398,7 @@ void Sorting::sort_cocktail(int* arr, int size){
     }
 }
 
+//Merge Sort
 void Sorting::sort_merge(int *arr, int size, int start, int end){
     if (start<end){
         int div = (start+end)/2;
@@ -397,6 +408,7 @@ void Sorting::sort_merge(int *arr, int size, int start, int end){
     }
 }
 
+//Heapsort
 void Sorting::sort_heap(int *arr, int size){
     for (int i = size/2-1; i>=0; --i){
         heapify(arr,size,size,i);
@@ -404,17 +416,17 @@ void Sorting::sort_heap(int *arr, int size){
 
     for (int i=size-1;i>=0;--i){
         swap(arr,size,0,i);
-//        int color[1] = {i};
-//        visualize(arr,size,color,1);
+//        visualize
         color_size = 1;
-        color = new int[color_size];
-        color[0] = i;
-        visualize(arr,size,color,color_size);
-        delete [] color;
+        color_index = new int[color_size];
+        color_index[0] = i;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
         heapify(arr,size,i,0);
     }
 }
 
+//Gnome Sort
 void Sorting::sort_gnome(int *arr, int size){
     int i=0;
     while (i<size){
@@ -428,16 +440,16 @@ void Sorting::sort_gnome(int *arr, int size){
             swap(arr,size,i-1,i);
             --i;
         }
-//        int color[1] = {i};
-//        visualize(arr,size,color,1);
+//        visualize
         color_size = 1;
-        color = new int[color_size];
-        color[0] = i;
-        visualize(arr,size,color,color_size);
-        delete [] color;
+        color_index = new int[color_size];
+        color_index[0] = i;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
     }
 }
 
+//Counting Sort, also used in Radix Sort
 void Sorting::sort_counting(int* arr, int size,int base,int exp){
     int* temp = new int[size];
     int* count = new int[base];
@@ -446,11 +458,12 @@ void Sorting::sort_counting(int* arr, int size,int base,int exp){
     }
     for (int i=0;i<size;++i){
         count[(arr[i]/exp)%base]++;
+//        visualize
         color_size = 1;
-        color = new int[color_size];
-        color[0] = i;
-        visualize(arr,size,color,color_size);
-        delete [] color;
+        color_index = new int[color_size];
+        color_index[0] = i;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
     }
 
     for (int i=1;i<base;++i){
@@ -467,22 +480,25 @@ void Sorting::sort_counting(int* arr, int size,int base,int exp){
             arr[i] = temp[i];
             ++num_changes;
         }
+//        visualize
         color_size = 1;
-        color = new int[color_size];
-        color[0] = i;
-        visualize(arr,size,color,color_size);
-        delete [] color;
+        color_index = new int[color_size];
+        color_index[0] = i;
+        visualize(arr,size,color_index,color_size);
+        delete [] color_index;
     }
     delete [] temp;
     delete [] count;
 }
 
+//Radix Sort (Least Significant Digit)
 void Sorting::sort_radix(int *arr, int size, int base){
-    for (int exp=1;numberMax/exp>0;exp*=base){
+    for (int exp=1;MAX_NUMBER/exp>0;exp*=base){
         sort_counting(arr,size,base,exp);
     }
 }
 
+//Comb Sort
 void Sorting::sort_comb(int* arr,int size){
     int gap = size*13/20;
     bool changed = true;
@@ -501,18 +517,20 @@ void Sorting::sort_comb(int* arr,int size){
                 swap(arr,size,i,i+gap);
                 changed = true;
             }
+//            visualize
             color_size = 2;
-            color = new int[color_size];
-            color[0] = i;
-            color[1] = i+gap;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = i;
+            color_index[1] = i+gap;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
 
             ++i;
         }
     }
 }
 
+//Odd Even Sort
 void Sorting::sort_oddeven(int *arr, int size){
     bool changed = true;
     while (changed){
@@ -523,12 +541,13 @@ void Sorting::sort_oddeven(int *arr, int size){
                 swap(arr,size,i,i+1);
                 changed = true;
             }
+//            visualize
             color_size = 2;
-            color = new int[color_size];
-            color[0] = i;
-            color[1] = i+1;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = i;
+            color_index[1] = i+1;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
         }
 
         for (int i=0;i<size-1;i+=2){
@@ -537,16 +556,18 @@ void Sorting::sort_oddeven(int *arr, int size){
                 swap(arr,size,i,i+1);
                 changed = true;
             }
+//            visualize
             color_size = 2;
-            color = new int[color_size];
-            color[0] = i;
-            color[1] = i+1;
-            visualize(arr,size,color,color_size);
-            delete [] color;
+            color_index = new int[color_size];
+            color_index[0] = i;
+            color_index[1] = i+1;
+            visualize(arr,size,color_index,color_size);
+            delete [] color_index;
         }
     }
 }
 
+//Visualize the current state of the array
 void Sorting::visualize(int* arr,int size_arr,int* colorindex,int size_color){
     emit changed(arr,size_arr,colorindex,size_color);
     this->usleep(animDelay);
