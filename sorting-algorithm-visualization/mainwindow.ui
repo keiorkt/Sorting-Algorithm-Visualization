@@ -127,7 +127,7 @@
      </layout>
     </item>
     <item>
-     <layout class="QHBoxLayout" name="mainPainter">
+     <layout class="QHBoxLayout" name="mainpalette">
       <property name="spacing">
        <number>6</number>
       </property>

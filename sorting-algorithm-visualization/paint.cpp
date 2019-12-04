@@ -7,11 +7,9 @@ Paint::Paint(QWidget *parent) : QWidget(parent) {
     setPalette(palette);
     setAutoFillBackground(true);
     animate = false;
-    penWidth = 1;
-    spacing = 0;
     setPen(QPen(lineColor, penWidth, Qt::PenStyle::SolidLine, Qt::PenCapStyle::SquareCap, Qt::PenJoinStyle::BevelJoin));
     sortingsound = new QMediaPlayer;
-    sortingsound->setMedia(QUrl("qrc:/sounds/sorting.mp3"));
+    sortingsound->setMedia(QUrl("qrc:/sounds/sorting.mp3")); // load the binary data of sortingsound from Resources folder
 }
 
 // setter function for the important varialbes to draw elements.
@@ -31,39 +29,38 @@ void Paint::paintEvent(QPaintEvent *) {
     int space = (this->width()-(penWidth*(size-1)))/2;
     for (int i{0}; i < size; ++i) {
         pen.setColor(lineColor);
-        pen.setWidth(penWidth);
+        pen.setWidth(penWidth); // set the appropriate penWidth according to the array size
         painter.setPen(pen);
 
-        bool contain{false};
-        for (int j{0}; j < sizeColorIndices; ++j) {
-            if (colorIndices[j] == i) {contain = true;}
+        bool color{false};
+        for (int j{0}; j < sizeColorIndices; ++j) { // color the element if i is included in color indices array
+            if (colorIndices[j] == i) {color = true;}
         }
 
-        if (animate && contain) {
+        if (animate && color) { // set color for the bar of specific index
             pen.setColor(colors[colorIdx]);
             painter.setPen(pen);
-            ++colorIdx;
+            ++colorIdx; // increment color index so that next colored bar can be colored differently
         }
 
-
         if (paintType == "Bar") {
-            painter.drawLine((i)*penWidth+space, this->height(),
+            painter.drawLine((i)*penWidth+space, this->height(), // use `space` to center elements
                              (i)*penWidth+space, this->height() - numbers[i]);
         }
         else if (paintType == "Star") {
             painter.drawPoint((i)*penWidth+space, this->height() - numbers[i]);
         }
-        else {
+        else { // use `Bar` as default
             painter.drawLine((i)*penWidth+space, this->height()-1,
                              (i)*penWidth+space, this->height() - numbers[i]-1);
         }
 
 
-        if (animate) {
+        if (animate) { // avoid playing sound when `shuffle` is pressed
             if (sortingsound->state() == QMediaPlayer::PlayingState) {
-                sortingsound->setPosition(0);
+                sortingsound->setPosition(0); // set postion to 0 if playing
             } else if (sortingsound->state() == QMediaPlayer::StoppedState) {
-                sortingsound->play();
+                sortingsound->play(); // simply play the sound if no sound
             }
         }
     }

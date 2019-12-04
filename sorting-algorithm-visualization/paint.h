@@ -26,7 +26,7 @@ public:
     void resetLineColor() {lineColor = DEFAULT_LINE_COLOR;}
 
 protected:
-    void paintEvent(QPaintEvent *event) override;
+    void paintEvent(QPaintEvent *event) override; // this method is called when `update()` or `repaint()` is called
 
 private:
     QPalette palette;

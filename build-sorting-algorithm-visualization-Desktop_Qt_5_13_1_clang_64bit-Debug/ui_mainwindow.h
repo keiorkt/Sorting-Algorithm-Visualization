@@ -41,7 +41,7 @@ public:
     QPushButton *buttonStart;
     QComboBox *comboBoxArraySize;
     QLabel *label_2;
-    QHBoxLayout *mainPainter;
+    QHBoxLayout *mainpalette;
     QGridLayout *gridLayout_1;
     QGridLayout *gridLayout_2;
     QLabel *labelComparisons;
@@ -145,12 +145,12 @@ public:
 
         verticalLayout->addLayout(gridLayout_3);
 
-        mainPainter = new QHBoxLayout();
-        mainPainter->setSpacing(6);
-        mainPainter->setObjectName(QString::fromUtf8("mainPainter"));
-        mainPainter->setSizeConstraint(QLayout::SetDefaultConstraint);
+        mainpalette = new QHBoxLayout();
+        mainpalette->setSpacing(6);
+        mainpalette->setObjectName(QString::fromUtf8("mainpalette"));
+        mainpalette->setSizeConstraint(QLayout::SetDefaultConstraint);
 
-        verticalLayout->addLayout(mainPainter);
+        verticalLayout->addLayout(mainpalette);
 
         gridLayout_1 = new QGridLayout();
         gridLayout_1->setSpacing(6);
