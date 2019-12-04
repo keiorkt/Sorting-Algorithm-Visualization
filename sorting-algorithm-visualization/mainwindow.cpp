@@ -10,13 +10,14 @@ MainWindow::MainWindow(QWidget *parent)
     this->centralWidget()->setContentsMargins(0,0,0,0);
     setWindowTitle("Sorting Algorithm Visualization");
 
+    // set initial value of the ui components
     ui->labelChanges->setText("Changes\n");
     ui->labelComparisons->setText("Comparisons\n");
     ui->labelTime->setText("Time\n00ms");
 
     sorting = new Sorting(this);
 
-    ui->mainPainter->addWidget(&paint);
+    ui->mainpalette->addWidget(&paint); // add Paint class instance to draw elements on mainpalette, use PVR to save memory
     ui->comboBoxAlgorithm->addItems(sorting->getAlgorithms());
     ui->comboBoxShuffle->addItems(sorting->getShuffles());
     ui->comboBoxPaintType->addItems(paint.getPaintTypes());
@@ -36,33 +37,43 @@ MainWindow::MainWindow(QWidget *parent)
     paint.update();
 
     completionsound = new QMediaPlayer;
-    completionsound->setMedia(QUrl("qrc:/sounds/complete.mp3"));
+    completionsound->setMedia(QUrl("qrc:/sounds/complete.mp3")); // get the binary data from Resources folder
 
-    // CONNECT
+    // connect signals and slots
+
+    // when numbers and colorIndices arrays change tirgger `onNumbersChanged`
     connect(sorting, SIGNAL(changed(int*, int, int*, int)),
             this, SLOT(onNumbersChanged(int*, int, int*, int)));
 
+    // trigger `onSortingFinished` when sorting is done
     connect(sorting, SIGNAL(done()),
             this, SLOT(onSortingFinished()));
 
+    // tirgger `onChangeAlgorithm` when algorithm is changed by user
     connect(ui->comboBoxAlgorithm, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangeAlgorithm(QString)));
 
+    // trigger `onChangeShuffle` when shuffle type is changed by user
     connect(ui->comboBoxShuffle, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangeShuffle(QString)));
 
+    // trigger `onChangePaintType` when paint type is changed by user
     connect(ui->comboBoxPaintType, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onChangePaintType(QString)));
 
+    // trigger `setValue` of `ui->spinBoxAnimSpped` when `ui->SliderSpeed` is chnaged. synchronize slider and spinBox
     connect(ui->SliderSpeed, SIGNAL(valueChanged(int)),
             ui->spinBoxAnimSpeed,SLOT(setValue(int)));
 
+    // reverse of above
     connect(ui->spinBoxAnimSpeed, SIGNAL(valueChanged(int)),
             ui->SliderSpeed, SLOT(setValue(int)));
 
+    // trigger `onNumverOfSizeChange` when array size is chagnged by user
     connect(ui->comboBoxArraySize, SIGNAL(currentTextChanged(QString)),
             this, SLOT(onNumberOfSizeChange(QString)));
 
+    // create array
     sorting->createArray();
 }
 
@@ -72,10 +83,11 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+// dynamically calculate `penWidth` according to the size etc...
 void MainWindow::onNumberOfSizeChange(QString sizestring) {
     int newValue = sizestring.toInt();
     paint.setPenWidth(1024/newValue);
-    paint.setLineColor(Qt::white);
+    paint.resetLineColor();
     sorting->setSize(newValue);
     sorting->shuffle();
     sorting->createArray();
@@ -83,6 +95,7 @@ void MainWindow::onNumberOfSizeChange(QString sizestring) {
 }
 
 
+// change the number of comparions label and changes label
 void MainWindow::onNumbersChanged(int* nums, int size, int* colorIndices, int sizeColorIndices) {
     ui->labelComparisons->setText("Comparisons\n" + QString::number(sorting->get_num_comparisons()));
     ui->labelChanges->setText("Changes\n" + QString::number(sorting->get_num_changed()));
@@ -91,13 +104,14 @@ void MainWindow::onNumbersChanged(int* nums, int size, int* colorIndices, int si
 }
 
 void MainWindow::onSortingFinished() {
-    ui->labelTime->setText("Time\n" + QString::number(timer.elapsed()) + "ms");
-    paint.setAnimate(false);
-    paint.setLineColor(Qt::yellow);
-    paint.update();
+    ui->labelTime->setText("Time\n" + QString::number(timer.elapsed()) + "ms"); // update the time label
+    paint.setAnimate(false); // set animate to false
+    paint.setLineColor(Qt::yellow); // set line color to yellow
+    paint.update(); // update the drawing
     isSorting = false;
     ui->buttonShuffle->setDisabled(false);
     ui->buttonStart->setText("Start");
+    // make completion sound
     if (completionsound->state() == QMediaPlayer::PlayingState) {
         completionsound->setPosition(0);
     } else if (completionsound->state() == QMediaPlayer::StoppedState) {
@@ -119,27 +133,27 @@ void MainWindow::onChangePaintType(QString paintTypeName) {
 }
 
 void MainWindow::on_buttonStart_pressed() {
-    if (!isSorting) {
+    if (!isSorting) { // if not sorting simply start sorting
         isSorting = true;
         ui->buttonStart->setText("Stop");
-        ui->buttonShuffle->setDisabled(true);
+        ui->buttonShuffle->setDisabled(true); // disable shuffle button, users have to press stop to shuffle
         sorting->setAnimSpeed(ui->spinBoxAnimSpeed->value());
         paint.setAnimate(true);
         paint.resetLineColor();
         timer.start();
-        sorting->start();
+        sorting->start(); // use QThread function start()
     }
     else {
         isSorting = false;
         paint.setAnimate(false);
-        ui->buttonShuffle->setDisabled(false);
+        ui->buttonShuffle->setDisabled(false); // enable shuffle btn
         paint.resetLineColor();
         ui->buttonStart->setText("Start");
-        sorting->terminate();
+        sorting->terminate(); // use QThread function terminate()
     }
 }
 
-void MainWindow::on_buttonShuffle_pressed() {
+void MainWindow::on_buttonShuffle_pressed() { // reset time label and line color
     paint.resetLineColor();
     ui->labelTime->setText("Time\n0ms");
     sorting->createArray();
