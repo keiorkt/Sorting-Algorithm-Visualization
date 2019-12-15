@@ -39,7 +39,7 @@ void Sorting::run(){
     }
 
     // finish sorting
-    // visualize to make sure correct update of num_comparisons and num_changes 
+    // visualize to make sure correct num_comparisons and num_changes are shown
     color_size = 0;
     color_index = new int [color_size];
     visualize(arr,size,color_index,color_size);
